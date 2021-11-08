@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>VM的ftp很困擾我</title>
+    <link href="/2021/11/05/VM%E7%9A%84ftp%E5%BE%88%E5%9B%B0%E6%93%BE%E6%88%91/"/>
+    <url>/2021/11/05/VM%E7%9A%84ftp%E5%BE%88%E5%9B%B0%E6%93%BE%E6%88%91/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://iter01.com/367794.html">你在找我嗎?</a><br>公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合<br>詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境<br>因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不會</p><p>廢話到這，<strong>重點</strong>都用這些標示了</p><h3 id="FTP與SFTP設定"><a href="#FTP與SFTP設定" class="headerlink" title="FTP與SFTP設定"></a>FTP與SFTP設定</h3><p>如開頭連結一開始有網址可以查詢設定</p><ul><li>系統Linux的CentOS7環境<h5 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h5></li></ul><ol><li>安裝啟動FTP服務</li></ol><p>1.1 centos<strong>安裝vsftpd</strong>服務</p><p>使用 yum 安裝 vsftpd<br><code>yum install -y vsftpd</code></p><p>1.2啟動vsftpd<br>安裝完成後, <strong>啟動vsftpd</strong>服務 :<br><code>service vsftpd start</code></p><p>啟動後, 可以看到系統已經監聽了 21 埠(Ubuntu下命令為: lsof -i:21)<br><code>netstat -nltp | grep 21</code></p><ol start="2"><li>配置FTP許可權</li></ol><p>2.1 瞭解 vsftpd 配置<br>vsftpd 的配置目錄為 /etc/vsftpd, 包含下列的配置檔案 :<br>        a. vsftpd.conf 為主要配置檔案<br>        b. ftpusers 配置禁止訪問 FTP 伺服器的使用者列表<br>        c. user_list 配置使用者訪問控制</p><p>2.2 阻止匿名訪問和切換根目錄<br>匿名訪問和切換目錄都會給伺服器帶來安全風險, 我們把這兩個功能關閉.<br>編輯 /etc/vsftpd/vsftpd.conf, 找到下面兩處配置並修改:</p><ul><li><p>禁用匿名使用者  YES 改為NO<br>anonymous_enable=NO</p></li><li><p>禁止切換根目錄 刪除或#<br>chroot_local_user=YES</p></li></ul><p>編輯完成後儲存配置, <strong>重新啟動 FTP</strong> 服務<br><code>service vsftpd restart</code></p><p>—上工了待續…</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>530,VirtualBox,CentOS7</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>markdown語法</title>
+    <link href="/2021/11/03/markdown%E8%AA%9E%E6%B3%95/"/>
+    <url>/2021/11/03/markdown%E8%AA%9E%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>到目前為止都還是對這東西懵懵懂懂，因為之前上課(3月22)的時候都是接觸<a href="https://www.youtube.com/watch?v=lo1nhg1Jmfc">簡簡單單</a>的<a href="https://www.notion.so/zh-tw">notion</a>，直到看到了<a href="https://www.facebook.com/story.php?story_fbid=3199157170094892&id=100000019222295">這個</a>跟<a href="https://www.facebook.com/groups/notion.so.taiwan/permalink/652369225314224/">這個</a>。<br>簡單來說就是隱私權條款被改掉了</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">Business </span>Development <span class="hljs-keyword">and </span>Strategic Partnerships: We may collect personal information from individuals <span class="hljs-keyword">and </span>third parties to assess <span class="hljs-keyword">and </span>pursue potential <span class="hljs-keyword">business </span>opportunities.<br></code></pre></td></tr></table></figure><p>這個現在找不到了，相關提供個資給第三方的說法現在都改成「基於提供服務的目的（或使用者有要求的事項為前題），將使用必要資訊或提供必要資訊給第三方」<br>之後我就怕的叫躲在角落發抖。<br><img src="https://voicettank.org/wp-content/uploads/2021/03/c31f16_0a4e5db16b1b4bff9a86503cc1e5e638-mv2.jpg"></p><p>直到最近考完考試開始工作之後，發現程式這東西不做筆記真的不行，昨天寫的程式可能你今天就忘了，光那個<code>#</code> <code>//</code> <code>&lt;-- --&gt;</code> <code>&#123;&#123;-- --&#125;&#125;</code>等等的東西大概看就知道噢~~~這用在哪邊，比一般的程式碼還會分辨哪個語法用什麼</p><p>離題了…</p><p>今天要講的就是<a href="https://hackmd.io/@wootu/SkY0M5wsZ?type=view">markdown語法</a><br>上面連結的大大講的非常清楚哪些地方用在哪裡<br>像是之前都沒試著用過的<code>![]()</code>去塞圖片，還有<code>&gt;</code>的引用之類的，上面都有寫<br>那我就不多作介紹，自己點<a href="https://hackmd.io/@wootu/SkY0M5wsZ?type=view">連結</a>幫忙衝個人氣去看吧</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>markdown,Hexo,notion</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hexo - fluid主題</title>
+    <link href="/2021/11/03/fluid%E4%B8%BB%E9%A1%8C%E4%BD%BF%E7%94%A8/"/>
+    <url>/2021/11/03/fluid%E4%B8%BB%E9%A1%8C%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>這東西真的搞得我快瘋掉<br>每次弄這個都失敗，前前後後重新安裝了大概10來次，補上新的東西他就給你跳故障，弄得自己頭超痛</p><p>不過！就在今天！終於發現自己錯誤的一個點，特別來記錄一下<br><img src="https://memeprod.ap-south-1.linodeobjects.com/user-gif/53629eede0fb322983836d87096661ac.gif"></p><h1 id="fluid主題使用"><a href="#fluid主題使用" class="headerlink" title="fluid主題使用"></a>fluid主題使用</h1><p>其實到目前為止都還在熟悉中，雖然是全中文主題但是根本看不懂他到底在寫什麼阿阿阿！(吶喊)<br>我只是想要好好地寫一個文章記錄我的文章，結果碰到這個真的是關關難過但關關不說。<br>所以這邊有<a href="https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97">中文參考網站</a></p><p><strong>注意</strong> 如果再開啟hexo server狀態下執行hexo clean會導致整個檔案的public都被清除！hexo會把整個public資料夾當作已產生的靜態檔案給清除。<br><a href="https://s81679.github.io/2020/02/25/hexo-theme-fluid/">前人痛苦經歷</a></p><h4 id="錯誤事項注意"><a href="#錯誤事項注意" class="headerlink" title="錯誤事項注意"></a>錯誤事項注意</h4><ul><li><a href="https://fluid-dev.github.io/hexo-fluid-docs/start/#%E6%90%AD%E5%BB%BA-hexo-%E5%8D%9A%E5%AE%A2">官方文件</a></li></ul><blockquote><p>Hexo 5.0.0 版本以上，推荐通过 npm 直接安装，进入博客目录执行命令：<br><code>npm install --save hexo-theme-fluid</code><br>然后在博客目录下创建 _config.fluid.yml，将主题的 _config.yml (opens new window)内容复制过去。</p></blockquote><p>每次看到這段的時候就會直些下意識的把資料夾下方的_config複製一遍然後改檔名，而簡體文獻中 <strong>主題</strong> 跟 <strong>博客</strong> <del>可不可以寫得好分辨一點</del>這兩個位置真的很容易讓人搞錯<br>所以如果你用路徑安裝的話，實際位置會在 <code>hexo目錄/node_modules/hexo-theme-fluid/_config.yml</code><br>這才會是他這段說要的東西<br>真的是一步錯步步錯，這東西從我練乙級前(9月)到現在(11月)才搞懂，終於在我快放棄這個主題的時候，開始我的hexo建置了(汗顏)</p><h4 id="重建"><a href="#重建" class="headerlink" title="重建"></a>重建</h4><p>hexo既然重建那麼多次了。<br>肯定知道，如果要移植的時候<code>source</code>這個資料夾<strong>裡面的東西</strong>記得<strong>全部</strong>複製起來。<br>他會是你重頭到尾嘔心瀝血所創作出來的所有文章，如果你忘記備份並且他沒事自動上傳到git做紀錄，那你也只能節哀順變了…</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>fluid,Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基礎hexo使用，架設</title>
+    <link href="/2021/10/03/hexo%E4%BD%BF%E7%94%A8%E5%8F%8A%E6%9E%B6%E8%A8%AD/"/>
+    <url>/2021/10/03/hexo%E4%BD%BF%E7%94%A8%E5%8F%8A%E6%9E%B6%E8%A8%AD/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a><a href="https://hexo.io/zh-tw/docs/">Quick Start</a></h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ npm install -g hexo-cli<br></code></pre></td></tr></table></figure><h3 id="Setting-設定，設定，設定。"><a href="#Setting-設定，設定，設定。" class="headerlink" title="Setting 設定，設定，設定。"></a>Setting 設定，設定，設定。</h3><p>最外層<code>_config.yml</code>會是你需要修改有關主題、git、語言、網站標題內容等等的地方，他會是一個類似全域的東西去修改很整個網站的東西，所以不要亂加一些有得沒得不然可能會跟我一樣進得去出不來，發不了大財。</p><h3 id="Create-a-new-post-創造一個全新的！！！！！-文章？"><a href="#Create-a-new-post-創造一個全新的！！！！！-文章？" class="headerlink" title="Create a new post 創造一個全新的！！！！！　　　　文章？"></a>Create a new post 創造一個全新的！！！！！　　　　文章？</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo new &quot;My New Post&quot;<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="ready-to-run-server-產生server前該做的事情"><a href="#ready-to-run-server-產生server前該做的事情" class="headerlink" title="ready to run server 產生server前該做的事情"></a>ready to run server 產生server前該做的事情</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo g -debug<br></code></pre></td></tr></table></figure><h6 id="Generate-static-files-跨博，產生靜態檔案的意思"><a href="#Generate-static-files-跨博，產生靜態檔案的意思" class="headerlink" title="Generate static files 跨博，產生靜態檔案的意思"></a>Generate static files 跨博，產生靜態檔案的意思</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo generate<br></code></pre></td></tr></table></figure><ul><li>一段hexo都可以互相組合，底下是常用組合內容</li></ul><table><thead><tr><th>選項</th><th>描述</th></tr></thead><tbody><tr><td><code>-d</code>,<code>--deploy</code></td><td>產生完成即部屬網站</td></tr><tr><td><code>-w</code>,<code>--watch</code></td><td>監看檔案變更</td></tr><tr><td><code>--debug</code></td><td>除錯模式</td></tr></tbody></table><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h6 id="Deploy-to-remote-sites-部屬網站…dase-其實跟上面可以一起組合用"><a href="#Deploy-to-remote-sites-部屬網站…dase-其實跟上面可以一起組合用" class="headerlink" title="Deploy to remote sites 部屬網站…dase?其實跟上面可以一起組合用"></a>Deploy to remote sites 部屬網站…dase?其實跟上面可以一起組合用</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo deploy<br></code></pre></td></tr></table></figure><table><thead><tr><th>選項</th><th>描述</th></tr></thead><tbody><tr><td><code>-g</code>,<code>--generate</code></td><td>部屬網站前先產生靜態檔案</td></tr></tbody></table><h3 id="Run-server-模擬server"><a href="#Run-server-模擬server" class="headerlink" title="Run server 模擬server"></a>Run server 模擬server</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><p>摸應佛:<a href="https://hexo.io/zh-tw/docs/commands">中文指令</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>PHPnote</title>
+    <link href="/2021/10/02/PHPnote/"/>
+    <url>/2021/10/02/PHPnote/</url>
+    
+    <content type="html"><![CDATA[<p>P…..<br>開始打了之後發現，好像也沒什麼好打的。</p><span id="more"></span><p>看自己以前的筆記都覺得太初階放上來會被笑… :disappointed_relieved:</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>PHP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
