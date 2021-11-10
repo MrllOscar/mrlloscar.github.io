@@ -4,11 +4,30 @@
   
   
   <entry>
+    <title>ssl://mail.u-coder.net:465 Timed Out 錯誤</title>
+    <link href="/2021/11/10/ssl-mail-u-coder-net-465-Timed-Out/"/>
+    <url>/2021/11/10/ssl-mail-u-coder-net-465-Timed-Out/</url>
+    
+    <content type="html"><![CDATA[<p>今天花了整個早上的時間在尋找這個錯誤இдஇ<br>一開始因為進來的陣列資料是雙重迴圈要做處理，<br>最後用了乙級考試的方式去拆解他ヾ(･∀･`)</p><span id="more"></span><p>看起來大概是：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;id&#x27;</span>] <span class="hljs-keyword">as</span> <span class="hljs-variable">$index</span> =&gt; <span class="hljs-variable">$id</span>)<br>&#123;<br>  <span class="hljs-keyword">foreach</span>(array_keys(<span class="hljs-variable">$_POST</span>) <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>)<br>  &#123;<br>    <span class="hljs-variable">$data</span>[<span class="hljs-variable">$key</span>]=<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$key</span>][<span class="hljs-variable">$index</span>];<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>這樣的方式去設計，讓得到的資料有key跟value<br>說實話我到現在考完試一個月對這段還是很陌生(´⊙ω⊙<code>) 結果我把這段程式碼加進去後</code>dd($data)<code>出來的東西都正確 卻突然送了一個這個東西給我 上網查了很久明明跟我現在做的東西沒有任何關係 但它還是來了( ´•̥̥̥ω•̥̥̥</code> )<br>最後在三四千行的程式碼慢慢篩選之後發現，<br>原來專案程式會success送到一個/Mail的東東去處理<br>註解掉之後就沒問題了ξ( ✿＞◡❛)</p><p>但這問題之後肯定還會碰到，希望之後會對它的原理越來越熟悉<br>網路上查到都是465之類的問題，不太能理解…</p><p>上班真的是問題接踵而來，挫折感滿滿，希望大家都能互相加油(ง๑ •̀_•́)ง</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>laravel,PHP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>VM的ftp很困擾我</title>
     <link href="/2021/11/05/VM%E7%9A%84ftp%E5%BE%88%E5%9B%B0%E6%93%BE%E6%88%91/"/>
     <url>/2021/11/05/VM%E7%9A%84ftp%E5%BE%88%E5%9B%B0%E6%93%BE%E6%88%91/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://iter01.com/367794.html">你在找我嗎?</a><br>公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合<br>詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境<br>因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不會</p><p>廢話到這，<strong>重點</strong>都用這些標示了</p><h3 id="FTP與SFTP設定"><a href="#FTP與SFTP設定" class="headerlink" title="FTP與SFTP設定"></a>FTP與SFTP設定</h3><p>如開頭連結一開始有網址可以查詢設定</p><ul><li>系統Linux的CentOS7環境<h5 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h5></li></ul><ol><li>安裝啟動FTP服務</li></ol><p>1.1 centos<strong>安裝vsftpd</strong>服務</p><p>使用 yum 安裝 vsftpd<br><code>yum install -y vsftpd</code></p><p>1.2啟動vsftpd<br>安裝完成後, <strong>啟動vsftpd</strong>服務 :<br><code>service vsftpd start</code></p><p>啟動後, 可以看到系統已經監聽了 21 埠(Ubuntu下命令為: lsof -i:21)<br><code>netstat -nltp | grep 21</code></p><ol start="2"><li>配置FTP許可權</li></ol><p>2.1 瞭解 vsftpd 配置<br>vsftpd 的配置目錄為 /etc/vsftpd, 包含下列的配置檔案 :<br>        a. vsftpd.conf 為主要配置檔案<br>        b. ftpusers 配置禁止訪問 FTP 伺服器的使用者列表<br>        c. user_list 配置使用者訪問控制</p><p>2.2 阻止匿名訪問和切換根目錄<br>匿名訪問和切換目錄都會給伺服器帶來安全風險, 我們把這兩個功能關閉.<br>編輯 /etc/vsftpd/vsftpd.conf, 找到下面兩處配置並修改:</p><ul><li><p>禁用匿名使用者  YES 改為NO<br>anonymous_enable=NO</p></li><li><p>禁止切換根目錄 刪除或#<br>chroot_local_user=YES</p></li></ul><p>編輯完成後儲存配置, <strong>重新啟動 FTP</strong> 服務<br><code>service vsftpd restart</code></p><p>—上工了待續…</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://iter01.com/367794.html">你在找我嗎?</a><br>公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合<br>詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境<br>因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不會</p><p>廢話到這，<strong>重點</strong>都用這些標示了</p><h3 id="FTP與SFTP設定"><a href="#FTP與SFTP設定" class="headerlink" title="FTP與SFTP設定"></a>FTP與SFTP設定</h3><p>如開頭連結一開始有網址可以查詢設定</p><ul><li>系統Linux的CentOS7環境<h5 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h5></li></ul><ol><li>安裝啟動FTP服務</li></ol><p>1.1 centos<strong>安裝vsftpd</strong>服務</p><p>使用 yum 安裝 vsftpd<br><code>yum install -y vsftpd</code></p><p>1.2啟動vsftpd<br>安裝完成後, <strong>啟動vsftpd</strong>服務 :<br><code>service vsftpd start</code></p><p>啟動後, 可以看到系統已經監聽了 21 埠(Ubuntu下命令為: lsof -i:21)<br><code>netstat -nltp | grep 21</code></p><ol start="2"><li>配置FTP許可權</li></ol><p>2.1 瞭解 vsftpd 配置<br>vsftpd 的配置目錄為 /etc/vsftpd, 包含下列的配置檔案 :<br>        a. vsftpd.conf 為主要配置檔案<br>        b. ftpusers 配置禁止訪問 FTP 伺服器的使用者列表<br>        c. user_list 配置使用者訪問控制</p><p>2.2 阻止匿名訪問和切換根目錄<br>匿名訪問和切換目錄都會給伺服器帶來安全風險, 我們把這兩個功能關閉.<br>編輯 /etc/vsftpd/vsftpd.conf, 找到下面兩處配置並修改:</p><ul><li><p>禁用匿名使用者  YES 改為NO<br>anonymous_enable=NO</p></li><li><p>禁止切換根目錄 刪除或#<br>chroot_local_user=YES</p></li></ul><p>編輯完成後儲存配置, <strong>重新啟動 FTP</strong> 服務<br><code>service vsftpd restart</code></p><p>2.3 建立 FTP 使用者</p><p><strong>建立</strong>一個使用者 ftpuser<br><code>useradd ftpuser</code></p><p>為使用者 ftpuser <strong>設定密碼</strong><br><code>passwd ftpuser</code>  或  echo “new_password” | passwd ftpuser –stdin</p><p>2.4 限制該使用者僅能通過FTP訪問</p><p>限制使用者 ftpuser 只能通過 FTP 訪問伺服器, 而不能直接登入伺服器</p><p>usermod -s /sbin/nologin ftpuser</p><p>2.5 為使用者分配主目錄</p><p>為使用者 ftpuser建立主目錄並約定<br>/data/ftp 為主目錄, 該目錄不可上傳檔案<br>/data/ftp/pub 檔案只能上傳到該目錄下<br>在/data中建立相關的目錄<br>mkdir -p /data/ftp/pub</p><p><strong>設定訪問許可權</strong><br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code></p><p><strong>設定為使用者的主目錄</strong><br><code>usermod -d /data/ftp ftpuser</code></p><p>3、OK</p><p>至此, FTP服務已經搭建完成, 可以使用各種第三方客戶端來測試訪問FTP伺服器<br>訪問前, 記得<strong>關閉防火牆</strong><br><code>service firewalld stop</code></p><p><del>如果需要使用root登入連線FTP服務, 需要配置 /etc/vsftpd/user_list 和 /etc/vsftpd/ftpusers, 將檔案中的root註釋</del></p><p>之後的重點就是開機 <code>service firewalld stop</code> 跟 <code>service vsftpd start</code> 兩個記得使用就好</p><p>目前仍然出現的問題還在研究…</p><ul><li><input disabled="" type="checkbox"> 1.VM開機自動啟動vsftpd 的server</li><li><input disabled="" type="checkbox"> 2.針對80 port或是特定的port做指定開啟或關閉</li><li><input disabled="" type="checkbox"> 3.vsftpd config產生的530登入錯誤問題</li></ul><p>希望之後能趕快把這一塊更新完成再補上完整的東西( ´•̥̥̥ω•̥̥̥` )<br>—上工了待續…</p>]]></content>
     
     
     

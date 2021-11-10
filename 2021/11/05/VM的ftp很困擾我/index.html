@@ -24,7 +24,7 @@
 <meta property="og:description" content="你在找我嗎?公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-05T07:24:40.000Z">
-<meta property="article:modified_time" content="2021-11-05T07:46:12.771Z">
+<meta property="article:modified_time" content="2021-11-10T05:31:04.204Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="530,VirtualBox,CentOS7">
 <meta name="twitter:card" content="summary_large_image">
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      746 字
+      1.5k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2 分钟
+      5 分钟
     </span>
   
 
@@ -262,7 +262,27 @@
 </li>
 </ul>
 <p>編輯完成後儲存配置, <strong>重新啟動 FTP</strong> 服務<br><code>service vsftpd restart</code></p>
-<p>—上工了待續…</p>
+<p>2.3 建立 FTP 使用者</p>
+<p><strong>建立</strong>一個使用者 ftpuser<br><code>useradd ftpuser</code></p>
+<p>為使用者 ftpuser <strong>設定密碼</strong><br><code>passwd ftpuser</code>  或  echo “new_password” | passwd ftpuser –stdin</p>
+<p>2.4 限制該使用者僅能通過FTP訪問</p>
+<p>限制使用者 ftpuser 只能通過 FTP 訪問伺服器, 而不能直接登入伺服器</p>
+<p>usermod -s /sbin/nologin ftpuser</p>
+<p>2.5 為使用者分配主目錄</p>
+<p>為使用者 ftpuser建立主目錄並約定<br>/data/ftp 為主目錄, 該目錄不可上傳檔案<br>/data/ftp/pub 檔案只能上傳到該目錄下<br>在/data中建立相關的目錄<br>mkdir -p /data/ftp/pub</p>
+<p><strong>設定訪問許可權</strong><br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code></p>
+<p><strong>設定為使用者的主目錄</strong><br><code>usermod -d /data/ftp ftpuser</code></p>
+<p>3、OK</p>
+<p>至此, FTP服務已經搭建完成, 可以使用各種第三方客戶端來測試訪問FTP伺服器<br>訪問前, 記得<strong>關閉防火牆</strong><br><code>service firewalld stop</code></p>
+<p><del>如果需要使用root登入連線FTP服務, 需要配置 /etc/vsftpd/user_list 和 /etc/vsftpd/ftpusers, 將檔案中的root註釋</del></p>
+<p>之後的重點就是開機 <code>service firewalld stop</code> 跟 <code>service vsftpd start</code> 兩個記得使用就好</p>
+<p>目前仍然出現的問題還在研究…</p>
+<ul>
+<li><input disabled="" type="checkbox"> 1.VM開機自動啟動vsftpd 的server</li>
+<li><input disabled="" type="checkbox"> 2.針對80 port或是特定的port做指定開啟或關閉</li>
+<li><input disabled="" type="checkbox"> 3.vsftpd config產生的530登入錯誤問題</li>
+</ul>
+<p>希望之後能趕快把這一塊更新完成再補上完整的東西( ´•̥̥̥ω•̥̥̥` )<br>—上工了待續…</p>
 
             </div>
             <hr>
@@ -289,6 +309,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/10/ssl-mail-u-coder-net-465-Timed-Out/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ssl://mail.u-coder.net:465 Timed Out 錯誤</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
