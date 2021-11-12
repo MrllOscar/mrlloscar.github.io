@@ -33,7 +33,9 @@
     
     <tags>
       
-      <tag>laravel , PHP</tag>
+      <tag>PHP</tag>
+      
+      <tag>laravel</tag>
       
     </tags>
     
@@ -75,7 +77,11 @@
     
     <tags>
       
-      <tag>markdown , Hexo , notion</tag>
+      <tag>Hexo</tag>
+      
+      <tag>markdown</tag>
+      
+      <tag>notion</tag>
       
     </tags>
     
@@ -94,7 +100,9 @@
     
     <tags>
       
-      <tag>fluid , Hexo</tag>
+      <tag>fluid</tag>
+      
+      <tag>Hexo</tag>
       
     </tags>
     
