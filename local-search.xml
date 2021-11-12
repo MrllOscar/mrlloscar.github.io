@@ -33,7 +33,7 @@
     
     <tags>
       
-      <tag>laravel,PHP</tag>
+      <tag>laravel , PHP</tag>
       
     </tags>
     
@@ -52,7 +52,7 @@
     
     <tags>
       
-      <tag>530,VirtualBox,CentOS7</tag>
+      <tag>530 , VirtualBox , CentOS7</tag>
       
     </tags>
     
@@ -71,7 +71,7 @@
     
     <tags>
       
-      <tag>markdown,Hexo,notion</tag>
+      <tag>markdown , Hexo , notion</tag>
       
     </tags>
     
@@ -90,7 +90,7 @@
     
     <tags>
       
-      <tag>fluid,Hexo</tag>
+      <tag>fluid , Hexo</tag>
       
     </tags>
     
@@ -122,7 +122,7 @@
     <link href="/2021/10/02/PHPnote/"/>
     <url>/2021/10/02/PHPnote/</url>
     
-    <content type="html"><![CDATA[<p>P…..<br>開始打了之後發現，好像也沒什麼好打的。</p><span id="more"></span><p>看自己以前的筆記都覺得太初階放上來會被笑… :disappointed_relieved:</p>]]></content>
+    <content type="html"><![CDATA[<p>P…..<br>開始打了之後發現，好像也沒什麼好打的。</p><span id="more"></span><p>看自己以前的筆記都覺得太初階放上來會被笑… :disappointed_relieved:</p><p>基礎學完之後，之後問題大多數都落在<br>array_walk、array_map、array_combine、mysqli_num_field這種之前沒在用的涵式做學習<br>怎麼去理解、使用他，會在哪些地方做比較好的應用<br>多重迴圈的掌握，簡短效能的方法，演算法的調整<br>然後整理出自己需要的資料格式</p><p>光這些動作不熟悉就可以花掉一整天的時間。但是快的話可能邏輯清晰幾分鐘就好了<br>這部份大概也是目前需要努力熟悉的部份吧…</p>]]></content>
     
     
     
