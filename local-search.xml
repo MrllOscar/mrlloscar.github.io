@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>ifconfig指令不能用</title>
+    <link href="/2021/11/15/ifconfig%E6%8C%87%E4%BB%A4%E4%B8%8D%E8%83%BD%E7%94%A8/"/>
+    <url>/2021/11/15/ifconfig%E6%8C%87%E4%BB%A4%E4%B8%8D%E8%83%BD%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Linux環境安裝"><a href="#Linux環境安裝" class="headerlink" title="Linux環境安裝"></a>Linux環境安裝</h1><p>重頭開始安裝後，發現<code>ifconfig</code></p><p>這指令完全無法使用，於是上網google找資料</p><span id="more"></span><p>起初是因為想要練習虛擬機上面可不可以自己架起一個環境存放資料</p><p>如果可以的話，不像windows的圖形介面多多少少能抵擋一些電腦基礎的使用者開到一些想要加密的檔案或權限不同的檔案</p><p>例如之前待在某個社區，所有的會議資料，預算金額都直接放在桌面上門戶大開，其實現在回想起來真的捏一把冷汗</p><p>再跟著google的大神們指導下，從安裝oracle vm virtualbox</p><p>到安裝PHP版本，mariaDB資料庫，經過了許多波折，還碰到一個目前還沒辦法解決掉的vsftpd的config設定讓FileZilla會530無法連線(網路文章太多不知道哪筆才對)</p><p>這次近來是<code>ifconfig</code>指令不能使用，其實這東西可以用<code>ip addr</code>來找ip</p><p>內文中還有一個wget指令，但目前還不知道作用，所以沒去使用</p><p><code>ifconfig</code>指令不能用的原因是它是附屬於其他套件底下的，要查詢哪個套件的話</p><p>就要輸入指令<code>yum search ifconfig</code>或<code>yum search all ifconfig</code></p><p>除了一些python的東西外你會看到一個叫做net-tools的套件</p><p>這就是你要安裝的東西了，詳細資訊可以在看看這個<a href="https://blog.yowko.com/ifconfig-command-not-found/">參考網站</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>VirtualBox</tag>
+      
+      <tag>Linux</tag>
+      
+      <tag>CentOS</tag>
+      
+      <tag>虛擬機</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>茶葉蛋蛋</title>
     <link href="/2021/11/11/%E8%8C%B6%E8%91%89%E8%9B%8B%E8%9B%8B/"/>
     <url>/2021/11/11/%E8%8C%B6%E8%91%89%E8%9B%8B%E8%9B%8B/</url>
@@ -58,7 +83,7 @@
       
       <tag>VirtualBox</tag>
       
-      <tag>CentOS7</tag>
+      <tag>CentOS</tag>
       
     </tags>
     
