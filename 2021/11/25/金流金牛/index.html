@@ -28,7 +28,7 @@
 <meta property="og:description" content="金流api、開立發票最近開始碰到這個功能，包括台新apple pay、Line pay等等， 簡單來說這個功能就是，他給你文件，文件上會跟你說他要什麼，然後他會回給你什麼 你要做的事情，就是把他要的弄出來，把他回傳的東西接回來處理">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-25T08:10:28.000Z">
-<meta property="article:modified_time" content="2021-11-26T06:51:17.140Z">
+<meta property="article:modified_time" content="2021-11-26T06:57:50.731Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="金流">
@@ -202,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      822 字
+      3k 字
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分鐘
+      9 分鐘
     </span>
   
 
@@ -253,7 +253,7 @@
 <p>簡單來說，碰到付款就會碰到金流的問題，金流有各個廠商店家不同，複雜度也會不同</p>
 <p>舉例我接觸的這兩個，line pay要先<a target="_blank" rel="noopener" href="https://pay.line.me/tw/developers/techsupport/sandbox/save?locale=zh_TW">申請SandBox帳號</a>測試，申請完畢後會送你一組帳號密碼。</p>
 <p>登入之後就可以取得屬於你自己的key跟ID，然後要加入伺服器IP來接收，這塊我還沒弄懂。</p>
-<p>Header的部分就有<code>Content-Type</code>(基本每個都有這項)；<code>X-LINE-ChannelId</code>(你的ID)；<code>X-LINE-Authorization-Nonce</code>(目前還不知道放什麼)；``</p>
+<p>Header的部分就有<code>Content-Type</code>(基本每個都有這項)；<code>X-LINE-ChannelId</code>(你的ID)；<code>X-LINE-Authorization-Nonce</code>(目前還不知道放什麼)；<code>X-LINE-Authorization</code>(跟剛剛那個很像但似乎不一樣)</p>
 <p><a target="_blank" rel="noopener" href="https://pay.line.me/tw/developers/techsupport/sandbox/testflow?locale=zh_TW">測試流程</a>要進行base64加密等等，因為沒有親自跑過只有看過，他的複雜度比我自己實際使用的台新apple pay麻煩多了</p>
 <h2 id="台新部分就是他會跟你要某些資料，例如訂單資訊、金額等等。然後把這些資料包成json丟給他，他會回傳成功或失敗等等的狀態給你，相關的資訊都可以在文件上找的到，沒有加密解密問題。"><a href="#台新部分就是他會跟你要某些資料，例如訂單資訊、金額等等。然後把這些資料包成json丟給他，他會回傳成功或失敗等等的狀態給你，相關的資訊都可以在文件上找的到，沒有加密解密問題。" class="headerlink" title="台新部分就是他會跟你要某些資料，例如訂單資訊、金額等等。然後把這些資料包成json丟給他，他會回傳成功或失敗等等的狀態給你，相關的資訊都可以在文件上找的到，沒有加密解密問題。"></a>台新部分就是他會跟你要某些資料，例如訂單資訊、金額等等。然後把這些資料包成json丟給他，他會回傳成功或失敗等等的狀態給你，相關的資訊都可以在文件上找的到，沒有加密解密問題。</h2><h2 id="然後金流處理完之後"><a href="#然後金流處理完之後" class="headerlink" title="然後金流處理完之後"></a>然後金流處理完之後</h2><p>發票就是接下來的工作了，綠界文件大家都說很詳細照著做就好，但…我就不會讀文件阿！</p>
 <p>就像主管會說，google就找的到資料了，我發現我下的關鍵字都不正確，沒辦法找到自己要的東西</p>
@@ -261,6 +261,19 @@
 <p>像目前就卡在Data找不到，利用json-URL-AES加密後，對他來說資料還是空空如也。</p>
 <p>明天就是週五，希望能有機會突然驚醒或是有天神下凡指導，總覺得有人溝通真的更能確信自己在做的東西方向是對還是錯誤。</p>
 <p>最晚也希望下週能把這些東西產出來…加油</p>
+<ul>
+<li>2021.11.26</li>
+</ul>
+<hr>
+<p>讀了一整遍還是出不來，但做了一些測試，以官方提供的測試範例施作時，會出現</p>
+<p><code>&quot;TransMsg&quot;: &quot;The parameter [Data] decrypt fail&quot;,</code></p>
+<p>的錯誤，可能是我data直接包或是轉譯沒轉好，但目前仍找不到問題出在哪</p>
+<p>官方範例</p>
+<p>除了時間跟檔案編號有改之外，其他都是原封不動</p>
+<p>也嘗試過URL跟AES加密再送出，一樣是回傳data無法解析的問題</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;MerchantID&quot;</span>: <span class="hljs-number">2000132</span>,<br>    <span class="hljs-attr">&quot;RqHeader&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;Timestamp&quot;</span>: <span class="hljs-number">1637905000</span>,<br>        <span class="hljs-attr">&quot;Revision&quot;</span>: <span class="hljs-string">&quot;3.0.0&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;Data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;MerchantID&quot;</span>: <span class="hljs-string">&quot;2000132&quot;</span>,<br>        <span class="hljs-attr">&quot;RelateNumber&quot;</span>: <span class="hljs-string">&quot;20211125648330501&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerID&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerIdentifier&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerName&quot;</span>: <span class="hljs-string">&quot;綠界科技股份有限公司&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerAddr&quot;</span>: <span class="hljs-string">&quot;106 台北市南港區發票一街 1 號 1 樓&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerPhone&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;CustomerEmail&quot;</span>: <span class="hljs-string">&quot;test@ecpay.com.tw&quot;</span>,<br>        <span class="hljs-attr">&quot;ClearanceMark&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>        <span class="hljs-attr">&quot;Print&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>        <span class="hljs-attr">&quot;Donation&quot;</span>: <span class="hljs-string">&quot;0&quot;</span>,<br>        <span class="hljs-attr">&quot;LoveCode&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;CarrierType&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;CarrierNum&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">&quot;TaxType&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>        <span class="hljs-attr">&quot;SalesAmount&quot;</span>: <span class="hljs-number">100</span>,<br>        <span class="hljs-attr">&quot;InvoiceRemark&quot;</span>: <span class="hljs-string">&quot;發票備註&quot;</span>,<br>        <span class="hljs-attr">&quot;InvType&quot;</span>: <span class="hljs-string">&quot;07&quot;</span>,<br>        <span class="hljs-attr">&quot;vat&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>        <span class="hljs-attr">&quot;Items&quot;</span>: [<br>            &#123;<br>                <span class="hljs-attr">&quot;ItemSeq&quot;</span>: <span class="hljs-number">1</span>,<br>                <span class="hljs-attr">&quot;ItemName&quot;</span>: <span class="hljs-string">&quot;item01&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemCount&quot;</span>: <span class="hljs-number">1</span>,<br>                <span class="hljs-attr">&quot;ItemWord&quot;</span>: <span class="hljs-string">&quot;件&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemPrice&quot;</span>: <span class="hljs-number">50</span>,<br>                <span class="hljs-attr">&quot;ItemTaxType&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemAmount&quot;</span>: <span class="hljs-number">50</span>,<br>                <span class="hljs-attr">&quot;ItemRemark&quot;</span>: <span class="hljs-string">&quot;item01_desc&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;ItemSeq&quot;</span>: <span class="hljs-number">2</span>,<br>                <span class="hljs-attr">&quot;ItemName&quot;</span>: <span class="hljs-string">&quot;item02&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemCount&quot;</span>: <span class="hljs-number">1</span>,<br>                <span class="hljs-attr">&quot;ItemWord&quot;</span>: <span class="hljs-string">&quot;個&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemPrice&quot;</span>: <span class="hljs-number">20</span>,<br>                <span class="hljs-attr">&quot;ItemTaxType&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemAmount&quot;</span>: <span class="hljs-number">20</span>,<br>                <span class="hljs-attr">&quot;ItemRemark&quot;</span>: <span class="hljs-string">&quot;item02_desc&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;ItemSeq&quot;</span>: <span class="hljs-number">3</span>,<br>                <span class="hljs-attr">&quot;ItemName&quot;</span>: <span class="hljs-string">&quot;item03&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemCount&quot;</span>: <span class="hljs-number">3</span>,<br>                <span class="hljs-attr">&quot;ItemWord&quot;</span>: <span class="hljs-string">&quot;粒&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemPrice&quot;</span>: <span class="hljs-number">10</span>,<br>                <span class="hljs-attr">&quot;ItemTaxType&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>                <span class="hljs-attr">&quot;ItemAmount&quot;</span>: <span class="hljs-number">30</span>,<br>                <span class="hljs-attr">&quot;ItemRemark&quot;</span>: <span class="hljs-string">&quot;item03_desc&quot;</span><br>            &#125;<br>        ]<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然後自己的測試環境也是data出問題，看來怎麼處理data這塊東西可能是我突破發票這道關卡的因素了</p>
 
             </div>
             <hr>
