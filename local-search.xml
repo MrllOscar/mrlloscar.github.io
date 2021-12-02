@@ -137,6 +137,14 @@
     <content type="html"><![CDATA[<h1 id="VM虛擬環境"><a href="#VM虛擬環境" class="headerlink" title="VM虛擬環境"></a>VM虛擬環境</h1><h6 id="tags-網頁"><a href="#tags-網頁" class="headerlink" title="tags: 網頁"></a>tags: <code>網頁</code></h6><h3 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h3><p>看到這標題就知道你來到虛擬主機的環境了，歡迎來到這個世界(๑•́ ₃ •̀๑)，<br>本次使用的是VM BOX(Oracle VM VirtualBox)的程式進行安裝，<a href="https://yiling0308.pixnet.net/blog/post/358163087">參考網址</a><br>因為這次要求的是環境CentOS 7.5.1804、PHP5.6、mysql Ver15.1、Distrib 10.3.18-、MariaDB。本篇介紹就會以上述的條件進行安裝，若版本上有所不同可以google相對應的東西去做更改</p><ul><li><h6 id="第一步：下載Virtual-Box"><a href="#第一步：下載Virtual-Box" class="headerlink" title="第一步：下載Virtual Box"></a>第一步：下載<a href="https://www.virtualbox.org/">Virtual Box</a></h6></li><li><p>第二步：下載centOS的映像檔，官方網站有版本但可能會針對環境做許多不同版本的更改<br> 版本資訊可以上網google，這邊推薦幾個用過的<a href="http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/7.5.1804/isos/x86_64/">網站</a>、<a href="https://centos.cs.nctu.edu.tw/">交大網站</a>、<a href="https://wiki.centos.org/Download">官方網站</a></p></li><li><p>第三步：開始安裝centOS<br><code>新增</code><br>→為你的<strong>虛擬主機取名</strong>和<strong>選取存放資料夾</strong>，系統要選<code>Oracle</code>跟小紅帽<code>redhat</code><br>→記憶體大小可以根據需求調整，後續仍然可以增加<br>→<code>立即建立虛擬硬碟</code><br>→選擇<code>VDI(VirtualBox磁碟映像)</code><br>→<code>動態分配</code><br>→<code>啟動</code><br>→選擇下載的CentOS映像檔啟動<br>→畫面按 <strong>↑</strong>選擇<code>Install CentOS 7</code><br>→移出視窗的方法：<strong>右下方</strong>那個閃閃發亮的<strong>Ctrl</strong><br>→選擇安裝語言<br>→選擇<code>安裝目的地</code>，<code>自動配置磁碟分割</code>，左上角完成<br>→<code>開始安裝</code><br>→<code>設定Root密碼</code>(Root是管理員，擁有最高權限，密碼越安全越好)<br>→建一個用戶<code>給予管理員權限</code>(管理員權限建議使用Sudo，不要用root)<br>→VM<code>重新開機</code>後就可以使用了<br>→重新開機回到安裝畫面的話，映像檔沒有退出的關係(上方<code>裝置→光碟機→虛擬磁碟機中移除磁碟</code>→重新開機)</p><p>進到一片黑色畫面顯示localhost login:代表安裝完成啦!<br>輸入使用者帳號後再輸入密碼進行登入</p></li></ul><h3 id="PHP5-6"><a href="#PHP5-6" class="headerlink" title="PHP5.6"></a>PHP5.6</h3><ul><li>第四步：先安裝PHP的環境，這次要安裝的php是5.6版本，我們會需要yum進行輔助，安裝之前我們需要用EPEL跟Remi資料庫來協助我們<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-<span class="hljs-number">7</span>.noarch.rpm<br>yum install http://rpms.remirepo.<span class="hljs-built_in">net</span>/enterprise/remi-release-<span class="hljs-number">7</span>.rpm<br></code></pre></td></tr></table></figure>→接下來，安裝<code>yum-utils</code>，英文說他是 which is an assortment of utilities that integrate，也就是一個聚合體<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum-utils<br></code></pre></td></tr></table></figure>→<code>yum-utils</code>最重要的程式之一是<code>yum-config-manager</code>，使用他來啟用Remi作為安裝PHP版本的資料庫(repository)選擇，版本會在最後面進行輸入<br>使用 YUM-UTILS 的 yum-config-manager 啟用 PHP 7.3 的 Remi repository<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum-config-manager --enable remi-php55   [Install PHP <span class="hljs-number">5</span>.<span class="hljs-number">5</span>]<br>yum-config-manager --enable remi-php56   [Install PHP <span class="hljs-number">5</span>.<span class="hljs-number">6</span>]<br>yum-config-manager --enable remi-php72   [Install PHP <span class="hljs-number">7</span>.<span class="hljs-number">2</span>]<br>yum-config-manager --enable remi-php80   [Install PHP <span class="hljs-number">8</span>.<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>安裝 PHP<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo<br></code></pre></td></tr></table></figure>進行 PHP 版本檢查<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ php -v<br></code></pre></td></tr></table></figure></li></ul><h3 id="mysql-ver15-1-mariaDB安裝"><a href="#mysql-ver15-1-mariaDB安裝" class="headerlink" title="mysql ver15.1 (mariaDB安裝)"></a>mysql ver15.1 (mariaDB安裝)</h3><ul><li>第五步：進行mariaDB的安裝，mariaDB跟MySQL是通用的，但mariaDB是免費開源的程式，所以通常做為預設安裝的樣式。<br>兩種安裝mariadb與mariadb-server套件<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo yum groupinsatll mariadb mariasb-client -y<br></code></pre></td></tr></table></figure>上面是安裝Red Hat Enterprise Linux 7 RH254 Red Hat System Administration III Edition 1 Student Workbook的作法，但有另外一種作法為<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo yum insatll mariadb mariasb-server -y<br></code></pre></td></tr></table></figure></li></ul><p>  接下來也有兩種啟用MariaDB服務的方式<br>  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo systemctl <span class="hljs-built_in">start</span> mariafb<br></code></pre></td></tr></table></figure><br>  或是讓MariaDB服務會在每次開機自動啟動<br>  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo systemctl enable mariafb<br></code></pre></td></tr></table></figure></p><p>  檢查MariaDB版本<br>  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">mysql -V<br></code></pre></td></tr></table></figure><br>   記得後面V要是大寫<br>    升級MariaDB<br>      先停用MariaDB的服務：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">systemctl stop mariadb<br></code></pre></td></tr></table></figure><p>移除目前安裝的MariaDB舊版本：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum remove mariadb mariadb-server<br></code></pre></td></tr></table></figure><p>安裝新版本的MariaDB：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">yum install mariadb mariadb-server<br></code></pre></td></tr></table></figure><p>啟動自動啟用MariaDB服務：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">systemctl enable mariadb<br></code></pre></td></tr></table></figure><p>升級原有的Database：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">mysql_upgrade -u root -p<br></code></pre></td></tr></table></figure><p>重啟MariaDB服務：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">systemctl restart mariadb<br></code></pre></td></tr></table></figure><h3 id="composer安裝"><a href="#composer安裝" class="headerlink" title="composer安裝"></a><a href="https://getcomposer.org/download/">composer安裝</a></h3><p>在VM虛擬機中輸入</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmd">php -r &quot;<span class="hljs-built_in">copy</span>(&#x27;https://getcomposer.org/installer&#x27;, &#x27;composer-setup.php&#x27;);&quot;<br>php -r &quot;<span class="hljs-keyword">if</span> (hash_file(&#x27;sha384&#x27;, &#x27;composer-setup.php&#x27;) === &#x27;<span class="hljs-number">906</span>a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8&#x27;) &#123; <span class="hljs-built_in">echo</span> &#x27;Installer verified&#x27;; &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-built_in">echo</span> &#x27;Installer corrupt&#x27;; unlink(&#x27;composer-setup.php&#x27;); &#125; <span class="hljs-built_in">echo</span> PHP_EOL;&quot;<br>php composer-setup.php<br>php -r &quot;unlink(&#x27;composer-setup.php&#x27;);&quot;<br></code></pre></td></tr></table></figure><p>分別是(翻譯)<br>將安裝程序下載到當前目錄<br>驗證安裝程序 SHA-384，您也可以在此處交叉檢查<br>運行安裝程序<br>刪除安裝程序</p><p>所以刪除安裝程序前進行安裝</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo mv composer.phar /usr/local/bin/composer<br></code></pre></td></tr></table></figure><p>—–延伸閱讀<br><a href="https://shian420.pixnet.net/blog/post/329440572-%E5%BB%BA%E7%AB%8B%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83">Windows 7 VirtualBox 安裝</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>虛擬環境</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -157,6 +165,14 @@
     
     <content type="html"><![CDATA[<h1 id="Linux環境安裝"><a href="#Linux環境安裝" class="headerlink" title="Linux環境安裝"></a>Linux環境安裝</h1><p>重頭開始安裝後，發現<code>ifconfig</code></p><p>這指令完全無法使用，於是上網google找資料</p><span id="more"></span><p>起初是因為想要練習虛擬機上面可不可以自己架起一個環境存放資料</p><p>如果可以的話，不像windows的圖形介面多多少少能抵擋一些電腦基礎的使用者開到一些想要加密的檔案或權限不同的檔案</p><p>例如之前待在某個社區，所有的會議資料，預算金額都直接放在桌面上門戶大開，其實現在回想起來真的捏一把冷汗</p><p>再跟著google的大神們指導下，從安裝oracle vm virtualbox</p><p>到安裝PHP版本，mariaDB資料庫，經過了許多波折，還碰到一個目前還沒辦法解決掉的vsftpd的config設定讓FileZilla會530無法連線(網路文章太多不知道哪筆才對)</p><p>這次近來是<code>ifconfig</code>指令不能使用，其實這東西可以用<code>ip addr</code>來找ip</p><p>內文中還有一個wget指令，但目前還不知道作用，所以沒去使用</p><p><code>ifconfig</code>指令不能用的原因是它是附屬於其他套件底下的，要查詢哪個套件的話</p><p>就要輸入指令<code>yum search ifconfig</code>或<code>yum search all ifconfig</code></p><p>除了一些python的東西外你會看到一個叫做net-tools的套件</p><p>這就是你要安裝的東西了，詳細資訊可以在看看這個<a href="https://blog.yowko.com/ifconfig-command-not-found/">參考網站</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>虛擬環境</category>
+      
+    </categories>
     
     
     <tags>
@@ -183,6 +199,14 @@
     <content type="html"><![CDATA[<p>今天花了整個早上的時間在尋找這個錯誤இдஇ<br>一開始因為進來的陣列資料是雙重迴圈要做處理，<br>最後用了乙級考試的方式去拆解他ヾ(･∀･`)</p><span id="more"></span><p>看起來大概是：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;id&#x27;</span>] <span class="hljs-keyword">as</span> <span class="hljs-variable">$index</span> =&gt; <span class="hljs-variable">$id</span>)<br>&#123;<br>  <span class="hljs-keyword">foreach</span>(array_keys(<span class="hljs-variable">$_POST</span>) <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>)<br>  &#123;<br>    <span class="hljs-variable">$data</span>[<span class="hljs-variable">$key</span>]=<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$key</span>][<span class="hljs-variable">$index</span>];<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>這樣的方式去設計，讓得到的資料有key跟value<br>說實話我到現在考完試一個月對這段還是很陌生(´⊙ω⊙<code>) 結果我把這段程式碼加進去後</code>dd($data)<code>出來的東西都正確 卻突然送了一個這個東西給我 上網查了很久明明跟我現在做的東西沒有任何關係 但它還是來了( ´•̥̥̥ω•̥̥̥</code> )<br>最後在三四千行的程式碼慢慢篩選之後發現，<br>原來專案程式會success送到一個/Mail的東東去處理<br>註解掉之後就沒問題了ξ( ✿＞◡❛)</p><p>但這問題之後肯定還會碰到，希望之後會對它的原理越來越熟悉<br>網路上查到都是465之類的問題，不太能理解…</p><p>上班真的是問題接踵而來，挫折感滿滿，希望大家都能互相加油(ง๑ •̀_•́)ง</p>]]></content>
     
     
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>PHP</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -203,6 +227,14 @@
     
     <content type="html"><![CDATA[<p><a href="https://iter01.com/367794.html">你在找我嗎?</a><br>公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合<br>詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境<br>因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不會</p><p>廢話到這，<strong>重點</strong>都用這些標示了</p><h3 id="FTP與SFTP設定"><a href="#FTP與SFTP設定" class="headerlink" title="FTP與SFTP設定"></a>FTP與SFTP設定</h3><p>如開頭連結一開始有網址可以查詢設定</p><ul><li>系統Linux的CentOS7環境<h5 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h5></li></ul><ol><li>安裝啟動FTP服務</li></ol><p>1.1 centos<strong>安裝vsftpd</strong>服務</p><p>使用 yum 安裝 vsftpd<br><code>yum install -y vsftpd</code></p><p>1.2啟動vsftpd<br>安裝完成後, <strong>啟動vsftpd</strong>服務 :<br><code>service vsftpd start</code></p><p>啟動後, 可以看到系統已經監聽了 21 埠(Ubuntu下命令為: lsof -i:21)<br><code>netstat -nltp | grep 21</code></p><ol start="2"><li>配置FTP許可權</li></ol><p>2.1 瞭解 vsftpd 配置<br>vsftpd 的配置目錄為 /etc/vsftpd, 包含下列的配置檔案 :<br>        a. vsftpd.conf 為主要配置檔案<br>        b. ftpusers 配置禁止訪問 FTP 伺服器的使用者列表<br>        c. user_list 配置使用者訪問控制</p><p>2.2 阻止匿名訪問和切換根目錄<br>匿名訪問和切換目錄都會給伺服器帶來安全風險, 我們把這兩個功能關閉.<br>編輯 /etc/vsftpd/vsftpd.conf, 找到下面兩處配置並修改:</p><ul><li><p>禁用匿名使用者  YES 改為NO<br>anonymous_enable=NO</p></li><li><p>禁止切換根目錄 刪除或#<br>chroot_local_user=YES</p></li></ul><p>編輯完成後儲存配置, <strong>重新啟動 FTP</strong> 服務<br><code>service vsftpd restart</code></p><p>2.3 建立 FTP 使用者</p><p><strong>建立</strong>一個使用者 ftpuser<br><code>useradd ftpuser</code></p><p>為使用者 ftpuser <strong>設定密碼</strong><br><code>passwd ftpuser</code>  或  echo “new_password” | passwd ftpuser –stdin</p><p>2.4 限制該使用者僅能通過FTP訪問</p><p>限制使用者 ftpuser 只能通過 FTP 訪問伺服器, 而不能直接登入伺服器</p><p>usermod -s /sbin/nologin ftpuser</p><p>2.5 為使用者分配主目錄</p><p>為使用者 ftpuser建立主目錄並約定<br>/data/ftp 為主目錄, 該目錄不可上傳檔案<br>/data/ftp/pub 檔案只能上傳到該目錄下<br>在/data中建立相關的目錄<br>mkdir -p /data/ftp/pub</p><p><strong>設定訪問許可權</strong><br><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code></p><p><strong>設定為使用者的主目錄</strong><br><code>usermod -d /data/ftp ftpuser</code></p><p>3、OK</p><p>至此, FTP服務已經搭建完成, 可以使用各種第三方客戶端來測試訪問FTP伺服器<br>訪問前, 記得<strong>關閉防火牆</strong><br><code>service firewalld stop</code></p><p><del>如果需要使用root登入連線FTP服務, 需要配置 /etc/vsftpd/user_list 和 /etc/vsftpd/ftpusers, 將檔案中的root註釋</del></p><p>之後的重點就是開機 <code>service firewalld stop</code> 跟 <code>service vsftpd start</code> 兩個記得使用就好</p><p>目前仍然出現的問題還在研究…</p><ul><li><input disabled="" type="checkbox"> 1.VM開機自動啟動vsftpd 的server</li><li><input disabled="" type="checkbox"> 2.針對80 port或是特定的port做指定開啟或關閉</li><li><input checked="" disabled="" type="checkbox"> 3.vsftpd config產生的530登入錯誤問題</li></ul><p>希望之後能趕快把這一塊更新完成再補上完整的東西( ´•̥̥̥ω•̥̥̥` ) </p><hr><p>2021.11.22 上網找到一個<a href="https://iter01.com/557032.html">方法一</a>去解決<code>回應: 530 Login incorrect.</code>的問題<br>針對<code>/etc/pam.b/vsftpd</code>進行<code>vim</code>修改，將<code>auth required pam_shells.so</code>跟<code>auth include password-auth</code>進行註解</p><p>還有一個<a href="https://www.twblogs.net/a/5d074c4dbd9eee1ede039a0a">方法二</a>是將<code>auth required pam_shells.so</code>改成<code>auth required pam_nologin.so</code></p><p>這是目前解決的兩種方法，但利用網路磁碟機的方法的時候，他一樣會沒辦法連線到….所以肯定還有另外的解決方式才對</p><p>問了其他學長，也有提供sftp登入就不會有這個問題的用法，可能等以後再試試看…<br>雖然搞不懂原因，但至少成功可以將檔案呈現在FileZilla了</p><hr><p>—上工了待續…</p>]]></content>
     
+    
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>虛擬環境</category>
+      
+    </categories>
     
     
     <tags>
@@ -227,6 +259,14 @@
     <content type="html"><![CDATA[<p>到目前為止都還是對這東西懵懵懂懂，因為之前上課(3月22)的時候都是接觸<a href="https://www.youtube.com/watch?v=lo1nhg1Jmfc">簡簡單單</a>的<a href="https://www.notion.so/zh-tw">notion</a>，直到看到了<a href="https://www.facebook.com/story.php?story_fbid=3199157170094892&id=100000019222295">這個</a>跟<a href="https://www.facebook.com/groups/notion.so.taiwan/permalink/652369225314224/">這個</a>。<br>簡單來說就是隱私權條款被改掉了</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">Business </span>Development <span class="hljs-keyword">and </span>Strategic Partnerships: We may collect personal information from individuals <span class="hljs-keyword">and </span>third parties to assess <span class="hljs-keyword">and </span>pursue potential <span class="hljs-keyword">business </span>opportunities.<br></code></pre></td></tr></table></figure><p>這個現在找不到了，相關提供個資給第三方的說法現在都改成「基於提供服務的目的（或使用者有要求的事項為前題），將使用必要資訊或提供必要資訊給第三方」<br>之後我就怕的叫躲在角落發抖。<br><img src="https://voicettank.org/wp-content/uploads/2021/03/c31f16_0a4e5db16b1b4bff9a86503cc1e5e638-mv2.jpg"></p><p>直到最近考完考試開始工作之後，發現程式這東西不做筆記真的不行，昨天寫的程式可能你今天就忘了，光那個<code>#</code> <code>//</code> <code>&lt;-- --&gt;</code> <code>&#123;&#123;-- --&#125;&#125;</code>等等的東西大概看就知道噢~~~這用在哪邊，比一般的程式碼還會分辨哪個語法用什麼</p><p>離題了…</p><p>今天要講的就是<a href="https://hackmd.io/@wootu/SkY0M5wsZ?type=view">markdown語法</a><br>上面連結的大大講的非常清楚哪些地方用在哪裡<br>像是之前都沒試著用過的<code>![]()</code>去塞圖片，還有<code>&gt;</code>的引用之類的，上面都有寫<br>那我就不多作介紹，自己點<a href="https://hackmd.io/@wootu/SkY0M5wsZ?type=view">連結</a>幫忙衝個人氣去看吧</p>]]></content>
     
     
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>Markdown</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -250,6 +290,14 @@
     <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>這東西真的搞得我快瘋掉<br>每次弄這個都失敗，前前後後重新安裝了大概10來次，補上新的東西他就給你跳故障，弄得自己頭超痛</p><p>不過！就在今天！終於發現自己錯誤的一個點，特別來記錄一下<br><img src="https://memeprod.ap-south-1.linodeobjects.com/user-gif/53629eede0fb322983836d87096661ac.gif"></p><h1 id="fluid主題使用"><a href="#fluid主題使用" class="headerlink" title="fluid主題使用"></a>fluid主題使用</h1><p>其實到目前為止都還在熟悉中，雖然是全中文主題但是根本看不懂他到底在寫什麼阿阿阿！(吶喊)<br>我只是想要好好地寫一個文章記錄我的文章，結果碰到這個真的是關關難過但關關不說。<br>所以這邊有<a href="https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97">中文參考網站</a></p><p><strong>注意</strong> 如果再開啟hexo server狀態下執行hexo clean會導致整個檔案的public都被清除！hexo會把整個public資料夾當作已產生的靜態檔案給清除。<br><a href="https://s81679.github.io/2020/02/25/hexo-theme-fluid/">前人痛苦經歷</a></p><h4 id="錯誤事項注意"><a href="#錯誤事項注意" class="headerlink" title="錯誤事項注意"></a>錯誤事項注意</h4><ul><li><a href="https://fluid-dev.github.io/hexo-fluid-docs/start/#%E6%90%AD%E5%BB%BA-hexo-%E5%8D%9A%E5%AE%A2">官方文件</a></li></ul><blockquote><p>Hexo 5.0.0 版本以上，推荐通过 npm 直接安装，进入博客目录执行命令：<br><code>npm install --save hexo-theme-fluid</code><br>然后在博客目录下创建 _config.fluid.yml，将主题的 _config.yml (opens new window)内容复制过去。</p></blockquote><p>每次看到這段的時候就會直些下意識的把資料夾下方的_config複製一遍然後改檔名，而簡體文獻中 <strong>主題</strong> 跟 <strong>博客</strong> <del>可不可以寫得好分辨一點</del>這兩個位置真的很容易讓人搞錯<br>所以如果你用路徑安裝的話，實際位置會在 <code>hexo目錄/node_modules/hexo-theme-fluid/_config.yml</code><br>這才會是他這段說要的東西<br>真的是一步錯步步錯，這東西從我練乙級前(9月)到現在(11月)才搞懂，終於在我快放棄這個主題的時候，開始我的hexo建置了(汗顏)</p><h4 id="重建"><a href="#重建" class="headerlink" title="重建"></a>重建</h4><p>hexo既然重建那麼多次了。<br>肯定知道，如果要移植的時候<code>source</code>這個資料夾<strong>裡面的東西</strong>記得<strong>全部</strong>複製起來。<br>他會是你重頭到尾嘔心瀝血所創作出來的所有文章，如果你忘記備份並且他沒事自動上傳到git做紀錄，那你也只能節哀順變了…</p>]]></content>
     
     
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -271,6 +319,14 @@
     <content type="html"><![CDATA[<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a><a href="https://hexo.io/zh-tw/docs/">Quick Start</a></h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ npm install -g hexo-cli<br></code></pre></td></tr></table></figure><h3 id="Setting-設定，設定，設定。"><a href="#Setting-設定，設定，設定。" class="headerlink" title="Setting 設定，設定，設定。"></a>Setting 設定，設定，設定。</h3><p>最外層<code>_config.yml</code>會是你需要修改有關主題、git、語言、網站標題內容等等的地方，他會是一個類似全域的東西去修改很整個網站的東西，所以不要亂加一些有得沒得不然可能會跟我一樣進得去出不來，發不了大財。</p><h3 id="Create-a-new-post-創造一個全新的！！！！！-文章？"><a href="#Create-a-new-post-創造一個全新的！！！！！-文章？" class="headerlink" title="Create a new post 創造一個全新的！！！！！　　　　文章？"></a>Create a new post 創造一個全新的！！！！！　　　　文章？</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo new &quot;My New Post&quot;<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="ready-to-run-server-產生server前該做的事情"><a href="#ready-to-run-server-產生server前該做的事情" class="headerlink" title="ready to run server 產生server前該做的事情"></a>ready to run server 產生server前該做的事情</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo g -debug<br></code></pre></td></tr></table></figure><h6 id="Generate-static-files-跨博，產生靜態檔案的意思"><a href="#Generate-static-files-跨博，產生靜態檔案的意思" class="headerlink" title="Generate static files 跨博，產生靜態檔案的意思"></a>Generate static files 跨博，產生靜態檔案的意思</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo generate<br></code></pre></td></tr></table></figure><ul><li>一段hexo都可以互相組合，底下是常用組合內容</li></ul><table><thead><tr><th>選項</th><th>描述</th></tr></thead><tbody><tr><td><code>-d</code>,<code>--deploy</code></td><td>產生完成即部屬網站</td></tr><tr><td><code>-w</code>,<code>--watch</code></td><td>監看檔案變更</td></tr><tr><td><code>--debug</code></td><td>除錯模式</td></tr></tbody></table><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h6 id="Deploy-to-remote-sites-部屬網站…dase-其實跟上面可以一起組合用"><a href="#Deploy-to-remote-sites-部屬網站…dase-其實跟上面可以一起組合用" class="headerlink" title="Deploy to remote sites 部屬網站…dase?其實跟上面可以一起組合用"></a>Deploy to remote sites 部屬網站…dase?其實跟上面可以一起組合用</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo deploy<br></code></pre></td></tr></table></figure><table><thead><tr><th>選項</th><th>描述</th></tr></thead><tbody><tr><td><code>-g</code>,<code>--generate</code></td><td>部屬網站前先產生靜態檔案</td></tr></tbody></table><h3 id="Run-server-模擬server"><a href="#Run-server-模擬server" class="headerlink" title="Run server 模擬server"></a>Run server 模擬server</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><p>摸應佛:<a href="https://hexo.io/zh-tw/docs/commands">中文指令</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -289,6 +345,14 @@
     
     <content type="html"><![CDATA[<p>P…..<br>開始打了之後發現，好像也沒什麼好打的。</p><span id="more"></span><p>看自己以前的筆記都覺得太初階放上來會被笑… :disappointed_relieved:</p><p>基礎學完之後，之後問題大多數都落在<br>array_walk、array_map、array_combine、mysqli_num_field這種之前沒在用的涵式做學習<br>怎麼去理解、使用他，會在哪些地方做比較好的應用<br>多重迴圈的掌握，簡短效能的方法，演算法的調整<br>然後整理出自己需要的資料格式</p><p>光這些動作不熟悉就可以花掉一整天的時間。但是快的話可能邏輯清晰幾分鐘就好了<br>這部份大概也是目前需要努力熟悉的部份吧…</p>]]></content>
     
+    
+    <categories>
+      
+      <category>Code</category>
+      
+      <category>PHP</category>
+      
+    </categories>
     
     
     <tags>
