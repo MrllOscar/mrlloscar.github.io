@@ -8,7 +8,7 @@
     <link href="/2021/12/02/Git-Clone-Git-Pull/"/>
     <url>/2021/12/02/Git-Clone-Git-Pull/</url>
     
-    <content type="html"><![CDATA[<h1 id="Git-Clone"><a href="#Git-Clone" class="headerlink" title="Git Clone"></a>Git Clone</h1><p><code>git clone</code>是把整個路徑拉下來，在vscode的powershell裡面，會在位置內多建立一個資料夾拉下你的專案</p><p><code>git pull XXX</code></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Git-Clone"><a href="#Git-Clone" class="headerlink" title="Git Clone"></a>Git Clone</h1><p><code>git clone &lt;url&gt;</code>是把整個路徑拉下來，在vscode的powershell裡面，會在位置內多建立一個資料夾拉下你的專案</p><p>由於整個專案拉下來，所以你會看到很多不同分支</p><p>Q:可是我拉下來看<code>git branch</code>蝦咪巄博</p><p>因為<code>git branch</code>是只能看到自己目前本地的分支的</p><p>所以為了確認遠端的分支，指令應該是<code>git branch -a</code></p><p>這樣就可以看到整個專案出現的所有分支囉</p><p>接下來用<code>git checkout &lt;branch&gt;</code>就可以切換到遠端的分支了</p><p>同時你的vscode也會有所改變</p><p><code>git pull &lt;name&gt; &lt;url&gt; &lt;branch&gt;</code> 因為有設定branch就是只拉了那一個分支下來去做處理</p><p>自然無法像clone一樣隨意切換專案分支，但是抓東西下來比對的時候還是pull會方便一些</p>]]></content>
     
     
     <categories>
@@ -56,6 +56,8 @@
       <tag>多重陣列</tag>
       
       <tag>傳址</tag>
+      
+      <tag>多重</tag>
       
     </tags>
     
