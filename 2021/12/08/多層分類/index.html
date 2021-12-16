@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://mrlloscar.github.io/img/2021-12-15142513.png">
 <meta property="article:published_time" content="2021-12-08T10:08:16.000Z">
-<meta property="article:modified_time" content="2021-12-16T07:39:24.354Z">
+<meta property="article:modified_time" content="2021-12-16T07:41:17.775Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="疑難雜症">
@@ -214,7 +214,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7k 字
+      7.9k 字
     </span>
   
 
@@ -223,7 +223,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22 分鐘
+      25 分鐘
     </span>
   
 
@@ -307,8 +307,14 @@
 </blockquote>
 <p>當初一開始是將整張資料表撈出</p>
 <p>因為資料表過於龐大，所以光檢查資料表就會耗費許多時間，刪除一個資料大概會有五分鐘，造成使用者體驗極差</p>
-<p>最後將搜尋欄位減少，針對性的索取資料，不過因為沒有顯示在前台 <del>，所以連<code>id</code>欄位都不撈了</del></p>
+<p>最後將搜尋欄位減少，針對性的索取資料，不過因為沒有顯示在前台<del>，所以連<code>id</code>欄位都不撈了</del></p>
 <p>希望之後變強大的時候能夠更有效率執行這塊</p>
+<p>第一次修正</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">DB::table(<span class="hljs-string">&#x27;food&#x27;</span>)-&gt;select(<span class="hljs-string">&#x27;category_level_2_id&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;category_level_2_id&#x27;</span>, <span class="hljs-variable">$level2_id</span>)-&gt;lists(<span class="hljs-string">&#x27;category_level_2_id&#x27;</span>);<br>DB::table(<span class="hljs-string">&#x27;food&#x27;</span>)-&gt;select(<span class="hljs-string">&#x27;category_level_3_id&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;category_level_3_id&#x27;</span>, <span class="hljs-variable">$level3_id</span>)-&gt;lists(<span class="hljs-string">&#x27;category_level_3_id&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>最初版</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$level2</span> = DB::table(<span class="hljs-string">&#x27;category_level_2&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;parent_id&#x27;</span>, <span class="hljs-variable">$ids</span>)-&gt;get();<br><span class="hljs-variable">$level2_id</span> = collect(<span class="hljs-variable">$level2</span>)-&gt;pluck(<span class="hljs-string">&#x27;id&#x27;</span>)-&gt;toArray();<br><span class="hljs-variable">$level3</span> = DB::table(<span class="hljs-string">&#x27;category_level_3&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;parent_id&#x27;</span>, <span class="hljs-variable">$level2_id</span>)-&gt;get();<br><span class="hljs-variable">$level3_id</span> = collect(<span class="hljs-variable">$level3</span>)-&gt;pluck(<span class="hljs-string">&#x27;id&#x27;</span>)-&gt;toArray();<br><span class="hljs-variable">$food</span> += DB::table(<span class="hljs-string">&#x27;food&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;category_level_2_id&#x27;</span>, <span class="hljs-variable">$level2_id</span>)-&gt;get();<br><span class="hljs-variable">$food</span> += DB::table(<span class="hljs-string">&#x27;food&#x27;</span>)-&gt;whereIn(<span class="hljs-string">&#x27;category_level_3_id&#x27;</span>, <span class="hljs-variable">$level3_id</span>)-&gt;get();<br></code></pre></td></tr></table></figure>
+
 <h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><hr>
 <p>這次的負責的專案內容其實更考驗思考邏輯的問題，前端頁面可能花了一天從其他資料表拔一拔填一填就結束了</p>
 <p>反而是怎麼去跑動程式變的很重要，如果條件變多要怎麼調整搜尋的方式或內容</p>
