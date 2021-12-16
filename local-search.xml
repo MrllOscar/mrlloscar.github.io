@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>資料整理</title>
+    <link href="/2021/12/16/%E8%B3%87%E6%96%99%E6%95%B4%E7%90%86/"/>
+    <url>/2021/12/16/%E8%B3%87%E6%96%99%E6%95%B4%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="JSON資料整理"><a href="#JSON資料整理" class="headerlink" title="JSON資料整理"></a>JSON資料整理</h1><p>這次工作到一段落，有時間喘口氣</p><p>學長出了一個新的題目給我們</p><p>題目：資料是一筆商品配送訂單，會有相對應的配送平台</p><p>如果今天平台沒開或是故障、錯誤等等，會回傳一個訊息</p><p>當收到訊息時觸發這個函式，將這個平台的配送時間變為0，下一家的時間直接遞補上來</p><p>其中，第一家平台會算到下一分鐘的整點時間，所以要做相對應的調整<br>(12點0分12秒→12點1分0秒開始計算)</p><p>格式中，type不影響，store為配送平台，start_time為開始時間，end_time為結束時間，expire_minute為等待分鐘</p><p>來源資料是json格式</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$order_dispatcher</span>=<span class="hljs-string">&#x27;[&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;5&quot;,&quot;start_time&quot;:1639554623,&quot;end_time&quot;:1639554719,&quot;expire_minute&quot;:&quot;1&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;6&quot;,&quot;start_time&quot;:1639554720,&quot;end_time&quot;:1639554899,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;2&quot;,&quot;start_time&quot;:1639554900,&quot;end_time&quot;:1639555079,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;1&quot;,&quot;start_time&quot;:1639555080,&quot;end_time&quot;:1639555679,&quot;expire_minute&quot;:&quot;10&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;3&quot;,&quot;start_time&quot;:1639555680,&quot;end_time&quot;:1639555979,&quot;expire_minute&quot;:&quot;5&quot;,&quot;is_after&quot;:1&#125;]&#x27;</span>;<br></code></pre></td></tr></table></figure><p>輸出</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$result</span>=<span class="hljs-string">&#x27;[&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;5&quot;,&quot;start_time&quot;:1639554623,&quot;end_time&quot;:1639554719,&quot;expire_minute&quot;:&quot;1&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;6&quot;,&quot;start_time&quot;:1639554720,&quot;end_time&quot;:1639554899,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;2&quot;,&quot;start_time&quot;:0,&quot;end_time&quot;:0,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;1&quot;,&quot;start_time&quot;:1639554900,&quot;end_time&quot;:1639555259,&quot;expire_minute&quot;:&quot;10&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;3&quot;,&quot;start_time&quot;:1639555260,&quot;end_time&quot;:1639555559,&quot;expire_minute&quot;:&quot;5&quot;,&quot;is_after&quot;:1&#125;]&#x27;</span>;<br></code></pre></td></tr></table></figure><p>其中沒有發現is_after標籤來判斷最後一個</p><p>所以用count去算，針對第一個或最後一個還要做特定的判斷</p><p><a href="http://sandbox.onlinephpfunctions.com/code/9bbac3fd1d51ee99cc4d56ebf2f191241db4d8bc">我的解答</a>請各位小力鞭….如果有更好的做法也歡迎提供給我互相進步  (๑•́ ₃ •̀๑)</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logAlert</span>(<span class="hljs-params"><span class="hljs-variable">$el</span></span>)</span>&#123;<br><span class="hljs-variable">$order_dispatcher</span>=<span class="hljs-string">&#x27;[&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;5&quot;,&quot;start_time&quot;:1639554623,&quot;end_time&quot;:1639554719,&quot;expire_minute&quot;:&quot;1&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;6&quot;,&quot;start_time&quot;:1639554720,&quot;end_time&quot;:1639554899,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;2&quot;,&quot;start_time&quot;:1639554900,&quot;end_time&quot;:1639555079,&quot;expire_minute&quot;:&quot;3&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;1&quot;,&quot;start_time&quot;:1639555080,&quot;end_time&quot;:1639555679,&quot;expire_minute&quot;:&quot;10&quot;&#125;,</span><br><span class="hljs-string">&#123;&quot;type&quot;:1,&quot;store&quot;:&quot;3&quot;,&quot;start_time&quot;:1639555680,&quot;end_time&quot;:1639555979,&quot;expire_minute&quot;:&quot;5&quot;,&quot;is_after&quot;:1&#125;]&#x27;</span>;<br><br><span class="hljs-variable">$order_dispatcher</span>=json_decode(<span class="hljs-variable">$order_dispatcher</span>,<span class="hljs-literal">TRUE</span>);<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$order_dispatcher</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$result</span>)<br>&#123;<br>    <span class="hljs-variable">$startTime</span>=<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>];<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$startTime</span>%<span class="hljs-number">60</span> != <span class="hljs-number">0</span>)   <span class="hljs-comment">//   處理第一筆時間歸為整數計算</span><br>    &#123;<br>        <span class="hljs-variable">$startIntergerTime</span> = <span class="hljs-variable">$startTime</span>+(<span class="hljs-number">60</span>-(<span class="hljs-variable">$startTime</span>%<span class="hljs-number">60</span>));<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;store&#x27;</span>]==<span class="hljs-variable">$el</span>)<br>    &#123;<br>        <span class="hljs-variable">$keyChange</span>=<span class="hljs-variable">$key</span>+<span class="hljs-number">1</span>;<br>        <span class="hljs-variable">$startChange</span>=<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>];<br>        <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>]=<span class="hljs-number">0</span>;<br>        <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;end_time&#x27;</span>]=<span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$keyChange</span>))    <span class="hljs-comment">// 被改變後才開始處理</span><br>    &#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$key</span>==<span class="hljs-variable">$keyChange</span>)&#123;<br>            <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>]=<span class="hljs-variable">$startChange</span>;<br>            <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;end_time&#x27;</span>]=<span class="hljs-variable">$startIntergerTime</span>+(<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;expire_minute&#x27;</span>]*<span class="hljs-number">60</span>)-<span class="hljs-number">1</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$key</span>&gt;<span class="hljs-variable">$keyChange</span>)&#123;<br>            <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>]=<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>-<span class="hljs-number">1</span>][<span class="hljs-string">&#x27;end_time&#x27;</span>]+<span class="hljs-number">1</span>;<br>            <span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;end_time&#x27;</span>]=<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;start_time&#x27;</span>]-<span class="hljs-number">1</span>+(<span class="hljs-variable">$order_dispatcher</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;expire_minute&#x27;</span>]*<span class="hljs-number">60</span>);<br>        &#125;<br>    &#125;<br>&#125;<br>print_r(json_encode(<span class="hljs-variable">$order_dispatcher</span>));<br>&#125;<br>logAlert(<span class="hljs-variable">$input</span>);<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>疑難雜症</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>PHP</tag>
+      
+      <tag>疑難雜症</tag>
+      
+      <tag>多重陣列</tag>
+      
+      <tag>傳址</tag>
+      
+      <tag>多重</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>多層分類</title>
     <link href="/2021/12/08/%E5%A4%9A%E5%B1%A4%E5%88%86%E9%A1%9E/"/>
     <url>/2021/12/08/%E5%A4%9A%E5%B1%A4%E5%88%86%E9%A1%9E/</url>
@@ -13,7 +46,7 @@
     
     <categories>
       
-      <category>多重陣列</category>
+      <category>疑難雜症</category>
       
     </categories>
     
@@ -69,7 +102,7 @@
     
     <categories>
       
-      <category>多重陣列</category>
+      <category>疑難雜症</category>
       
     </categories>
     
@@ -129,7 +162,7 @@
     
     <categories>
       
-      <category>金流api</category>
+      <category>疑難雜症</category>
       
     </categories>
     
