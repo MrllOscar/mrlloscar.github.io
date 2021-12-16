@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://mrlloscar.github.io/img/AmountApiError.png">
 <meta property="og:image" content="http://mrlloscar.github.io/img/AmountApiSuccess.png">
 <meta property="article:published_time" content="2021-11-25T08:10:28.000Z">
-<meta property="article:modified_time" content="2021-12-16T03:10:09.501Z">
+<meta property="article:modified_time" content="2021-12-16T08:02:51.187Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="金流">
@@ -259,7 +259,7 @@
             <h1 style="display: none">金流金牛</h1>
             
             <div class="markdown-body">
-              <h1 id="金流api、開立發票"><a href="#金流api、開立發票" class="headerlink" title="金流api、開立發票"></a>金流api、開立發票</h1><p>最近開始碰到這個功能，包括台新apple pay、Line pay等等，</p>
+              <h1 id="金流api、開立發票"><a href="#金流api、開立發票" class="headerlink" title="金流api、開立發票"></a><font color=#FF6600>金流api、開立發票</font></h1><p>最近開始碰到這個功能，包括台新apple pay、Line pay等等，</p>
 <p>簡單來說這個功能就是，他給你文件，文件上會跟你說他要什麼，然後他會回給你什麼</p>
 <p>你要做的事情，就是把他要的弄出來，把他回傳的東西接回來處理</p>
 <span id="more"></span>
@@ -272,7 +272,7 @@
 <p>Header的部分就有<code>Content-Type</code>(基本每個都有這項)；<code>X-LINE-ChannelId</code>(你的ID)；<code>X-LINE-Authorization-Nonce</code>(目前還不知道放什麼)；<code>X-LINE-Authorization</code>(跟剛剛那個很像但似乎不一樣)</p>
 <p><a target="_blank" rel="noopener" href="https://pay.line.me/tw/developers/techsupport/sandbox/testflow?locale=zh_TW">測試流程</a>要進行base64加密等等，因為沒有親自跑過只有看過，他的複雜度比我自己實際使用的台新apple pay麻煩多了</p>
 <p>台新部分就是他會跟你要某些資料，例如訂單資訊、金額等等。然後把這些資料包成json丟給他，他會回傳成功或失敗等等的狀態給你，相關的資訊都可以在文件上找的到，沒有加密解密問題。</p>
-<h5 id="台新apple-pay注意的點：-送出的資料與格式"><a href="#台新apple-pay注意的點：-送出的資料與格式" class="headerlink" title="台新apple pay注意的點： 送出的資料與格式"></a>台新apple pay注意的點： 送出的資料與格式</h5><h5 id="Line-pay注意的點：-加密的方式及類型"><a href="#Line-pay注意的點：-加密的方式及類型" class="headerlink" title="Line pay注意的點： 加密的方式及類型"></a>Line pay注意的點： 加密的方式及類型</h5><hr>
+<h5 id="台新apple-pay注意的點：-送出的資料與格式"><a href="#台新apple-pay注意的點：-送出的資料與格式" class="headerlink" title="台新apple pay注意的點： 送出的資料與格式"></a><font color=#DD2222>台新apple pay注意的點： 送出的資料與格式</font></h5><h5 id="Line-pay注意的點：-加密的方式及類型"><a href="#Line-pay注意的點：-加密的方式及類型" class="headerlink" title="Line pay注意的點： 加密的方式及類型"></a><font color=#DD2222>Line pay注意的點： 加密的方式及類型</font></h5><hr>
 <h2 id="然後金流處理完之後"><a href="#然後金流處理完之後" class="headerlink" title="然後金流處理完之後"></a>然後金流處理完之後</h2><p>發票就是接下來的工作了，綠界文件大家都說很詳細照著做就好，但…我就不會讀文件阿！</p>
 <p>就像主管會說，google就找的到資料了，我發現我下的關鍵字都不正確，沒辦法找到自己要的東西</p>
 <p>就算東西出來了，也沒辦法解決我的問題，我嘗試把範例原封不動的搬上去，都還是會碰到一些問題</p>
@@ -295,15 +295,15 @@
 <ul>
 <li>2021.11.29 我大學長點醒了我的問題，讓我發現一件事情</li>
 </ul>
-<p>關於AES加密，不像URL那樣直接丟出去就會幫你轉好</p>
+<p><font color=#00FF00>關於AES加密</font>，不像URL那樣直接丟出去就會幫你轉好</p>
 <p>AES是有key 跟 iv 的，錯誤即會造成解析錯誤</p>
-<p>所以其中一個學長說:[你把範例解開來就知道啦！]，我這時才發現我的愚蠢，原來我加密出來的東西根本是兩個不同的東西</p>
+<p>所以其中一個學長說:<font color=#FF00FF>[你把範例解開來就知道啦！]</font>，我這時才發現我的<strong>愚蠢</strong>，原來我加密出來的東西根本是兩個不同的東西</p>
 <p>另外一個學長則是很好心的幫我釐清整個流程，更讓我確信，我是在加密這一塊出問題</p>
-<p>自然而然他就會回復加密錯誤的訊息了</p>
+<p>自然而然他就會回復加密<font color=#FF0000>錯誤的訊息</font>了</p>
 <p><img src="/img/AmountApiError.png" srcset="/img/loading.gif" lazyload></p>
 <p>終於在處理完這塊後</p>
 <p><img src="/img/AmountApiSuccess.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些"><a href="#謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些" class="headerlink" title="謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些"></a>謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些</h2><p>處理完單存開立發票的功能之後，繼續處理折讓部分就會簡單多了(也是此次研發的功能之一)</p>
+<h2 id="謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些-˘•ω•˘"><a href="#謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些-˘•ω•˘" class="headerlink" title="謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些(˘•ω•˘)"></a>謝天謝地謝謝好學長們，看來今天又比昨天的我成長了一些(˘•ω•˘)</h2><p>處理完單存開立發票的功能之後，繼續處理折讓部分就會簡單多了(也是此次研發的功能之一)</p>
 <p>發票折讓就是類似於退貨的關係…..嗎?(舉例來說)</p>
 <p>折讓的code也跟說明書說的一樣</p>
 <figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs d"> &#123;<br> <span class="hljs-string">&quot;MerchantID&quot;</span>: <span class="hljs-string">&quot;2000132&quot;</span>,<br> <span class="hljs-string">&quot;RqHeader&quot;</span>: &#123;<br> <span class="hljs-string">&quot;Timestamp&quot;</span>: <span class="hljs-number">1638164115</span>,<br> <span class="hljs-string">&quot;Revision&quot;</span>: <span class="hljs-string">&quot;3.0.0&quot;</span><br> &#125;,<br> <span class="hljs-string">&quot;Data&quot;</span>: <span class="hljs-string">&quot;&#123;</span><br><span class="hljs-string">&quot;</span>MerchantID<span class="hljs-string">&quot;: &quot;</span><span class="hljs-number">2000132</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>InvoiceNo<span class="hljs-string">&quot;: &quot;</span>ZM80000032<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>InvoiceDate<span class="hljs-string">&quot;: &quot;</span><span class="hljs-number">2021</span>/<span class="hljs-number">11</span>/<span class="hljs-number">29</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>AllowanceNotify<span class="hljs-string">&quot;: &quot;</span>E<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>CustomerName<span class="hljs-string">&quot;: &quot;</span>綠界科技股份有限公司<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>NotifyMail<span class="hljs-string">&quot;: &quot;</span>test<span class="hljs-keyword">@ecpay</span>.com.tw<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>NotifyPhone<span class="hljs-string">&quot;: &quot;</span><span class="hljs-number">0</span>912345678<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>AllowanceAmount<span class="hljs-string">&quot;: 60,</span><br><span class="hljs-string">&quot;</span>Items<span class="hljs-string">&quot;: [</span><br><span class="hljs-string">&#123;</span><br><span class="hljs-string">&quot;</span>ItemSe<span class="hljs-string">q&quot;: 1,</span><br><span class="hljs-string">&quot;</span>ItemName<span class="hljs-string">&quot;: &quot;</span>item01<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemCount<span class="hljs-string">&quot;: 1,</span><br><span class="hljs-string">&quot;</span>ItemWord<span class="hljs-string">&quot;: &quot;</span>件<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemPrice<span class="hljs-string">&quot;: 50,</span><br><span class="hljs-string">&quot;</span>ItemTaxType<span class="hljs-string">&quot;: &quot;</span><span class="hljs-number">2</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemAmount<span class="hljs-string">&quot;: 50</span><br><span class="hljs-string">&#125;,</span><br><span class="hljs-string">&#123;</span><br><span class="hljs-string">&quot;</span>ItemSe<span class="hljs-string">q&quot;: 3,</span><br><span class="hljs-string">&quot;</span>ItemName<span class="hljs-string">&quot;: &quot;</span>item03<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemCount<span class="hljs-string">&quot;: 1,</span><br><span class="hljs-string">&quot;</span>ItemWord<span class="hljs-string">&quot;: &quot;</span>粒<span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemPrice<span class="hljs-string">&quot;: 10,</span><br><span class="hljs-string">&quot;</span>ItemTaxType<span class="hljs-string">&quot;: &quot;</span><span class="hljs-number">1</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>ItemAmount<span class="hljs-string">&quot;: 10</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">]</span><br><span class="hljs-string">&#125;&quot;</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
@@ -313,7 +313,7 @@
 <p>想當然所有Data的東西還是要透過AES方式去加密。一樣在多注意key與iv的關係。</p>
 <p>不過目前位於最後可折讓金額的關係還是有點不清楚，應該是上述友重新送出的品項代表最後發票留下來的東西。</p>
 <p>所以會是相反的40元而不是60。</p>
-<h5 id="綠界要注意的點：時間點、AES加密、品項對應內容、格式"><a href="#綠界要注意的點：時間點、AES加密、品項對應內容、格式" class="headerlink" title="綠界要注意的點：時間點、AES加密、品項對應內容、格式"></a>綠界要注意的點：時間點、AES加密、品項對應內容、格式</h5>
+<h5 id="綠界要注意的點：時間點、AES加密、品項對應內容、格式"><a href="#綠界要注意的點：時間點、AES加密、品項對應內容、格式" class="headerlink" title="綠界要注意的點：時間點、AES加密、品項對應內容、格式"></a><font color=#FFD700>綠界要注意的點：時間點、AES加密、品項對應內容、格式</font></h5>
             </div>
             <hr>
             <div>
