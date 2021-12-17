@@ -26,7 +26,7 @@
 <meta property="og:description" content="你在找我嗎?公司因為專案是利用ftp去做檔案修改的，雖然有討論過git的問題，但似乎因為某些因素git只拿來做版本整合詳細情況也不清楚，總之目前就是從git上面拉下來一個專案，但是因為無法模擬出實際測試過後的結果，所以必須藉由VM的虛擬主機來模擬環境因此又必須要先前一開始進公司的環境測試環節，那部份我卡了很久最後也是靠長官拯救才處理完成，頂多開始了解什麼東西是虛擬主機他是來幹嘛的，但詳細設定還是不">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-05T07:24:40.000Z">
-<meta property="article:modified_time" content="2021-12-15T06:17:41.474Z">
+<meta property="article:modified_time" content="2021-12-17T10:37:45.444Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="530">
 <meta property="article:tag" content="VirtualBox">
@@ -212,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      3.8k 字
     </span>
   
 
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分鐘
+      12 分鐘
     </span>
   
 
@@ -305,7 +305,59 @@
 <p>這是目前解決的兩種方法，但利用網路磁碟機的方法的時候，他一樣會沒辦法連線到….所以肯定還有另外的解決方式才對</p>
 <p>問了其他學長，也有提供sftp登入就不會有這個問題的用法，可能等以後再試試看…<br>雖然搞不懂原因，但至少成功可以將檔案呈現在FileZilla了</p>
 <hr>
-<p>—上工了待續…</p>
+<p>2021.12.16 這一天比較有空，所以又研究了一次這個問題</p>
+<p>加上這次主管有空來提點了<strong>samba</strong>這個問題，終於讓我找到一點頭緒</p>
+<p>FTP的問題，透過上面註解是可以解決</p>
+<p>但是連線網路磁碟機是沒辦法連線成功的，找了很久於是找到了<a target="_blank" rel="noopener" href="https://josephjsf2.github.io/linux/2019/11/01/share_centos_folder_with_windows.html">這個</a></p>
+<p>這位Joseph大大講得非常詳細，我們的VM安裝的時候是<em>透過samba讓linux跟windows做溝通的</em></p>
+<p>然後這次用的環境是<strong>CentOS</strong>，這個關鍵字不能忘(怎麼突然想到XXXX烤香腸的旋律)</p>
+<p>CentOS上安裝Samba</p>
+<p><code>yum install samba samba-client samba-common -y</code></p>
+<p>建立目錄</p>
+<p>設定</p>
+<p><code>vim /etc/samba/smb.conf</code></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs nix">[global]<br>	<span class="hljs-attr">workgroup</span> = SAMBA<br>	netbios <span class="hljs-attr">name</span> = SAMBA_NETBIOS<br>	server <span class="hljs-attr">string</span> = SAMBA SERVER<br> <br>	log <span class="hljs-attr">file</span> = /var/log/samba/log.%m   <br>	max log <span class="hljs-attr">size</span> = <span class="hljs-number">500</span>    <br>	 <br>	<span class="hljs-attr">security</span> = user<br>	passdb <span class="hljs-attr">backend</span> = tdbsam<br><br> <br>[ShareFolder]<br>	<span class="hljs-attr">comment</span> =Shared<br>	<span class="hljs-attr">path</span> = /home/joseph/SharedFolder<br>	<span class="hljs-attr">browseable</span> = yes<br>	<span class="hljs-attr">writable</span> = yes<br> <br>	create <span class="hljs-attr">mode</span> = <span class="hljs-number">0660</span><br>	directory <span class="hljs-attr">mode</span> = <span class="hljs-number">2770</span><br> <br>	valid <span class="hljs-attr">users</span> = root   <span class="hljs-comment"># 必須是Linux上存在的user</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>底下ShareFolder是針對自己專案去取名稱的</p>
+<p>其中裡面的設定相關</p>
+<p>workgroup：工作群組名稱</p>
+<p>netbios name：SAMBA netBIOS name</p>
+<p>server string：Server 描述說明</p>
+<p>log file：SAMBA log 位置，可傳入參數，如%m表示Client端 NetBIOS名稱</p>
+<p>max log size：表示SAMBA log檔最大SIZE，單位為KB，Samba會定期檢查並將超過大小的檔案作rename的動作，如加上 .old extension</p>
+<p>security：user 表示需要在主機上有帳號才可登入使用</p>
+<p>passdb backend：決定使用何種方式儲存user與group資訊，設定為tdbsam表示以TDB based password方式儲存，可傳入第二個optional參數表示passdb.tdb檔案欲存放位置，預設會在private目錄(${prefix}/private)</p>
+<p>​ 如passdb backend = tdbsam:/etc/samba/private/passdb.tdb</p>
+<p>​ 預設路徑於 /var/lib/samba/private/passdb.tbd，private目錄為隱藏目錄，且必需要有足夠權限才可進入與檢 視</p>
+<p>[SharedFolder]：表示在網路芳鄰上顯示的名稱，smb.conf中可以存在多個 [ ]區塊，表示不同的分享目錄與設定</p>
+<p>comment：註解</p>
+<p>path：欲共享的目錄路徑</p>
+<p>browsable：</p>
+<p>writable：是否可寫入，如果設為no，Client端將沒辦法對資料夾或檔案做寫入的動作</p>
+<p>create mode：從Client端建立檔案後，建立之檔案權限會設定為create mode的值</p>
+<p>directory mode：從Client端建立目錄後，建立之目錄權限會設定為directory mode的值</p>
+<p>valid users：可登入SAMBA的帳號白名單列表，可直接指定帳號清單，或是以 @開頭表示可使用的群組，指定的user一定要是系統上存在的帳號，否則是無效的</p>
+<p>​ 如 root, @user 表示允許root帳號與 @user群組中的帳號使用</p>
+</blockquote>
+<p>設定開機啟動</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl <span class="hljs-builtin-name">enable</span><span class="hljs-built_in"> smb</span><br><span class="hljs-built_in"></span>systemctl <span class="hljs-builtin-name">enable</span> nmb<br></code></pre></td></tr></table></figure>
+
+<p>啟動Samba服務</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">systemctl <span class="hljs-literal">start</span> smb<br>systemctl <span class="hljs-literal">start</span> nmb<br></code></pre></td></tr></table></figure>
+
+<p>新增防火牆規則，允許外部可透過SAMBA連線至主機內存取目錄</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">permanent</span> --<span class="hljs-comment">zone=public</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">service=samba</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span><br></code></pre></td></tr></table></figure>
+
+<p>關閉SELinux(目前尚未能清楚知道關閉之原因，或是其實需要做什麼設定，受陷於目前不清楚SELinux，故只能先關閉)，目前未關閉SELinux情況下，Windows會沒權限無法存取SharedFolder內容</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">setenforce <span class="hljs-number">0</span>  <span class="hljs-comment"># 暫時關閉，會於下一次登入時失效</span><br><br>vi <span class="hljs-regexp">/etc/</span>selinux/config<br><br>SELINUX=disable <span class="hljs-comment">#永久關閉SELINUX</span><br></code></pre></td></tr></table></figure>
+
+<p>然後開啟的時候如果碰到權限問題，就是chmod沒開(上面有寫)</p>
+<p><code>chmod a-w /data/ftp &amp;&amp; chmod 777 -R /data/ftp/pub</code></p>
+<p>其中路徑記得改為自己路徑</p>
+<p>全部設定完成之後，windows網路磁碟機就能完美的連線成功啦！！</p>
+<p>終於，花了好多時間，解決了我心頭的大問題(灑花)</p>
+<p>太棒了！今天又比之前學到更多東西了呢(˘•ω•˘)</p>
 
             </div>
             <hr>
