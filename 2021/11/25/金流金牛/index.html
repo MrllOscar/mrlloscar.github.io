@@ -15,12 +15,10 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="金流api、開立發票最近開始碰到這個功能，包括台新apple pay、Line pay等等，
-簡單來說這個功能就是，他給你文件，文件上會跟你說他要什麼，然後他會回給你什麼
-你要做的事情，就是把他要的弄出來，把他回傳的東西接回來處理">
   <meta name="author" content="MrllOscar">
   <meta name="keywords" content="Oscar,小貓抓抓,Mrll">
-  <meta name="description" content="金流api、開立發票最近開始碰到這個功能，包括台新apple pay、Line pay等等， 簡單來說這個功能就是，他給你文件，文件上會跟你說他要什麼，然後他會回給你什麼 你要做的事情，就是把他要的弄出來，把他回傳的東西接回來處理">
+  
+    <meta name="description" content="金流api、開立發票最近開始碰到這個功能，包括台新apple pay、Line pay等等， 簡單來說這個功能就是，他給你文件，文件上會跟你說他要什麼，然後他會回給你什麼 你要做的事情，就是把他要的弄出來，把他回傳的東西接回來處理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="金流金牛">
 <meta property="og:url" content="http://mrlloscar.github.io/2021/11/25/%E9%87%91%E6%B5%81%E9%87%91%E7%89%9B/index.html">
@@ -38,6 +36,7 @@
 <meta property="article:tag" content="疑難雜症">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://mrlloscar.github.io/img/AmountApiError.png">
+  
   
   <title>金流金牛 - Mrll濕濕又黑黑の小角落</title>
 
@@ -76,7 +75,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"mrlloscar.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-204878594-1","gtag":"G-RBBF4VMDSZ","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"mrlloscar.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-204878594-1","gtag":"G-RBBF4VMDSZ","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -227,7 +226,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14 分鐘
+      15 分鐘
     </span>
   
 
@@ -501,7 +500,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>
