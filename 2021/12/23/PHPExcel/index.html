@@ -18,21 +18,23 @@
   <meta name="author" content="MrllOscar">
   <meta name="keywords" content="Oscar,小貓抓抓,Mrll">
   
-    <meta name="description" content="今天也是處理一個小issue就沒有放上來做討論了，待會還得去醫院打針破傷風 上週週末碰到一隻小野貓，一個月前也碰過他，看到他長大了不少，其實覺得蠻欣慰的 本來想說把剩菜剩飯給他吃，但其實後來上網查了之後發現這樣子其實並不好 原本想說他如果又親人我就收編了，結果也是問了別人才知道只相處一晚上要怎麼了解對方 總之他在周六晚上出現在我房間裡面，可能為了覓食可能最近天氣很冷 所以他就呆頭呆腦的跑進我房間了">
+    <meta name="description" content="PHPexcel有幸開始接處新的東西，PHPexcel 作用是把資料丟給這個obj，讓他產生excel檔案 其實裡面內容都是依照表格去撰寫，利用A1、B3等等的欄位去對應自己要找的位置 其中平常有GUI頁面的功能都會變成指令，像是表格背景顏色就要 123$sheet-&gt;getStyle(sprintf(&amp;#x27;A%d&amp;#x27;, $current_row_index))-&gt;get">
 <meta property="og:type" content="article">
-<meta property="og:title" content="野貓抓抓">
-<meta property="og:url" content="http://mrlloscar.github.io/2021/12/20/%E9%87%8E%E8%B2%93%E6%8A%93%E6%8A%93/index.html">
+<meta property="og:title" content="PHPExcel">
+<meta property="og:url" content="http://mrlloscar.github.io/2021/12/23/PHPExcel/index.html">
 <meta property="og:site_name" content="Mrll濕濕又黑黑の小角落">
-<meta property="og:description" content="今天也是處理一個小issue就沒有放上來做討論了，待會還得去醫院打針破傷風 上週週末碰到一隻小野貓，一個月前也碰過他，看到他長大了不少，其實覺得蠻欣慰的 本來想說把剩菜剩飯給他吃，但其實後來上網查了之後發現這樣子其實並不好 原本想說他如果又親人我就收編了，結果也是問了別人才知道只相處一晚上要怎麼了解對方 總之他在周六晚上出現在我房間裡面，可能為了覓食可能最近天氣很冷 所以他就呆頭呆腦的跑進我房間了">
+<meta property="og:description" content="PHPexcel有幸開始接處新的東西，PHPexcel 作用是把資料丟給這個obj，讓他產生excel檔案 其實裡面內容都是依照表格去撰寫，利用A1、B3等等的欄位去對應自己要找的位置 其中平常有GUI頁面的功能都會變成指令，像是表格背景顏色就要 123$sheet-&gt;getStyle(sprintf(&amp;#x27;A%d&amp;#x27;, $current_row_index))-&gt;get">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-12-20T05:18:43.000Z">
-<meta property="article:modified_time" content="2021-12-21T07:34:12.851Z">
+<meta property="article:published_time" content="2021-12-23T06:51:42.000Z">
+<meta property="article:modified_time" content="2021-12-23T06:53:24.931Z">
 <meta property="article:author" content="MrllOscar">
-<meta property="article:tag" content="心情隨手記">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="疑難雜症">
+<meta property="article:tag" content="excel">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>野貓抓抓 - Mrll濕濕又黑黑の小角落</title>
+  <title>PHPExcel - Mrll濕濕又黑黑の小角落</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -190,7 +192,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="野貓抓抓">
+            <span class="h2" id="subtitle" title="PHPExcel">
               
             </span>
 
@@ -200,8 +202,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-20 13:18" pubdate>
-        2021年12月20日 下午
+      <time datetime="2021-12-23 14:51" pubdate>
+        2021年12月23日 下午
       </time>
     </span>
   
@@ -211,7 +213,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      632 字
+      2.4k 字
     </span>
   
 
@@ -220,7 +222,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2 分鐘
+      8 分鐘
     </span>
   
 
@@ -257,27 +259,33 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">野貓抓抓</h1>
+            <h1 style="display: none">PHPExcel</h1>
             
             <div class="markdown-body">
-              <p>今天也是處理一個小issue就沒有放上來做討論了，待會還得去醫院打針破傷風</p>
-<p>上週週末碰到一隻小野貓，一個月前也碰過他，看到他長大了不少，其實覺得蠻欣慰的</p>
-<p>本來想說把剩菜剩飯給他吃，但其實後來上網查了之後發現這樣子其實並不好</p>
-<p>原本想說他如果又親人我就收編了，結果也是問了別人才知道只相處一晚上要怎麼了解對方</p>
-<p>總之他在周六晚上出現在我房間裡面，可能為了覓食可能最近天氣很冷</p>
-<p>所以他就呆頭呆腦的跑進我房間了吧，一開始他都躲著不動，我也盡量不去逼他，直到他後來想闖入我的衣服堆及床上的時候</p>
-<p>我心想：「等等！這隻臭貓沒洗過澡身上可能有跳蚤！」</p>
-<p>為了避免跳蚤滿屋的狀況，我徒手去抓了野貓，想當然手被抓的好幾道痕跡</p>
-<p>其實之前上網有查過，抓貓要戴手套，我真是太心急了居然忘記從車上拿手套上來</p>
-<p>總之手破相造成我下禮拜要拍婚紗很緊張 (•͈⌔•͈⑅)</p>
-<p>後來看他很冷，我把我之前破掉的衣服、襪子、內褲還沒拿去回收的東西給他保暖</p>
-<p>順便用了大概25度到30度的水幫他洗了個澡，不過怕他再次攻擊我也沒有在碰到他身體了</p>
-<p>隔天半夜四點他開始大吵大腦把我浴室給毀了，想了一下還是放他出去好了，也許外面的生活他更喜歡</p>
-<p>外面的生活對他來說是自由、說不定還可以找到家人(雖然我看他附近的家人都跑掉了)</p>
-<p>但裡面的生活是三餐正常能溫飽，並且可以活久一點(家貓年紀大約13歲、野貓大概五歲。主要是外面寄生蟲等等的關係)</p>
-<p>之後週日就沒再看過他了，也預祝牠之後能好生活。</p>
-<p>希望我對你做的事情是有幫助，不是害你的。</p>
-<p>謝謝你也給我滿手傷痕的上了一課ಠ_ಠ</p>
+              <h1 id="PHPexcel"><a href="#PHPexcel" class="headerlink" title="PHPexcel"></a>PHPexcel</h1><p>有幸開始接處新的東西，<a target="_blank" rel="noopener" href="https://thecolormoon.blogspot.com/2015/11/2015111302.html">PHPexcel</a></p>
+<p>作用是把資料丟給這個obj，讓他產生excel檔案</p>
+<p>其實裡面內容都是依照表格去撰寫，利用A1、B3等等的欄位去對應自己要找的位置</p>
+<p>其中平常有GUI頁面的功能都會變成指令，像是表格背景顏色就要</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$sheet</span>-&gt;getStyle(sprintf(<span class="hljs-string">&#x27;A%d&#x27;</span>, <span class="hljs-variable">$current_row_index</span>))<br>-&gt;getFill()-&gt;setFillType(PHPExcel_Style_Fill::FILL_SOLID)<br>-&gt;getStartColor()-&gt;setRGB(<span class="hljs-string">&#x27;d9e2f3&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>看起來會麻煩許多，其中框線這個功能讓我想破頭，從一開始laravel上方沒有導入物件讓border沒辦法使用，一直到最後用google到的函式測試都沒辦法成功刷出自己要的邊框，這點讓人非常苦惱</p>
+<p>其他功能例如自動換行、垂直置中、向左對齊等等</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$sheet</span>-&gt;getStyle(sprintf(<span class="hljs-string">&#x27;A%d&#x27;</span>, <span class="hljs-variable">$current_row_index</span>))<br>-&gt;getAlignment()-&gt;setWrapText(<span class="hljs-literal">TRUE</span>)-&gt;setHorizontal(PHPExcel_Style_Alignment::VERTICAL_CENTER)-&gt;setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);<br></code></pre></td></tr></table></figure>
+<p>都是用laravel的方式呈現</p>
+<p>語法基本上google都有，除了那個我不知道為什麼一直呈現不出來的邊框</p>
+<p>其他的組成像是換行<code>$current_row_index++</code>；找位置輸入值<code>setCellValue()</code>；合併儲存格<code>mergeCells</code>；等等</p>
+<p>組起來就會變成自己想要的樣式</p>
+<p>for迴圈也是藉由跑完一圈配上<code>$current_row_index++</code>繼續列印下一行</p>
+<p>其他額外的設定像是sheet表格(下方)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$sheet</span> = <span class="hljs-variable">$phpObj</span>-&gt;createSheet(<span class="hljs-number">0</span>);<br><span class="hljs-variable">$sheet</span>-&gt;setTitle(<span class="hljs-string">&#x27;下方表格名稱&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>最後欄位去設定整張資料表</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$max_row_seq</span> = count(<span class="hljs-variable">$orders</span>) + <span class="hljs-number">10</span>;<br><span class="hljs-variable">$global_style</span> = <span class="hljs-variable">$sheet</span>-&gt;getStyle(sprintf(<span class="hljs-string">&#x27;A0:Y%d&#x27;</span>, <span class="hljs-variable">$max_row_seq</span>));<br><span class="hljs-variable">$global_style</span>-&gt;getFont()-&gt;setSize(<span class="hljs-number">22</span>);<br></code></pre></td></tr></table></figure>
+
+<p>全部設定完在從他<code>outPut()</code>去產生檔案</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outPut</span>(<span class="hljs-params"><span class="hljs-variable">$phpExcelObj</span>, <span class="hljs-variable">$filename</span></span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-variable">$is_pdf</span> = request(<span class="hljs-string">&#x27;is_pdf&#x27;</span>,<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">$this</span>-&gt;output != <span class="hljs-string">&#x27;php://output&#x27;</span>) &#123;<br>        <span class="hljs-keyword">if</span>(!file_exists(<span class="hljs-keyword">$this</span>-&gt;output)) &#123;<br>            mkdirs(<span class="hljs-keyword">$this</span>-&gt;output);<br>        &#125;<br>        <span class="hljs-keyword">$this</span>-&gt;output = sprintf(<span class="hljs-string">&#x27;%s/%s.%s&#x27;</span>, <span class="hljs-keyword">$this</span>-&gt;output, <span class="hljs-variable">$filename</span>, <span class="hljs-variable">$is_pdf</span> ? <span class="hljs-string">&#x27;pdf&#x27;</span> : <span class="hljs-string">&#x27;xls&#x27;</span>);<br>        <span class="hljs-variable">$objWriter</span> = \PHPExcel_IOFactory::createWriter(<span class="hljs-variable">$phpExcelObj</span>, <span class="hljs-variable">$is_pdf</span> ? <span class="hljs-string">&#x27;PDF&#x27;</span> : <span class="hljs-string">&#x27;Excel5&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$is_pdf</span>)&#123;<br>            <span class="hljs-variable">$rendererName</span> = \PHPExcel_Settings::PDF_RENDERER_MPDF;<br>            <span class="hljs-variable">$rendererLibraryPath</span> = base_path(<span class="hljs-string">&#x27;vendor/mpdf/mpdf&#x27;</span>);<br>            <span class="hljs-keyword">if</span> (!\PHPExcel_Settings::setPdfRenderer(<span class="hljs-variable">$rendererName</span>, <span class="hljs-variable">$rendererLibraryPath</span>)) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<br>                    <span class="hljs-string">&#x27;Please set the $rendererName and $rendererLibraryPath values&#x27;</span> .<br>                    PHP_EOL .<br>                    <span class="hljs-string">&#x27; as appropriate for your directory structure&#x27;</span><br>                );<br>            &#125;<br>            setup_download_excel_header(<span class="hljs-variable">$filename</span>, <span class="hljs-literal">true</span>);<br>            <span class="hljs-variable">$objWriter</span> = \PHPExcel_IOFactory::createWriter(<span class="hljs-variable">$phpExcelObj</span>, <span class="hljs-string">&#x27;PDF&#x27;</span>);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            setup_download_excel_header(<span class="hljs-variable">$filename</span>);<br>            <span class="hljs-variable">$objWriter</span> = \PHPExcel_IOFactory::createWriter(<span class="hljs-variable">$phpExcelObj</span>, <span class="hljs-string">&#x27;Excel5&#x27;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-variable">$objWriter</span>-&gt;save(<span class="hljs-keyword">$this</span>-&gt;output);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>全部的設定設置完成，讓按鈕有觸發效果就可以產生excel檔案了，是不是很厲害阿(˘•ω•˘)</p>
+<p>雖然這功能不常用，不過還是紀錄一下讓以後的自己找資料可以更方便一點</p>
 
             </div>
             <hr>
@@ -287,7 +295,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9B%9C%E8%AB%87%E6%89%8B%E8%A8%98/">雜談手記</a>
+                      <a class="hover-with-bg" href="/categories/%E7%96%91%E9%9B%A3%E9%9B%9C%E7%97%87/">疑難雜症</a>
                     
                   </div>
                 
@@ -295,7 +303,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%BF%83%E6%83%85%E9%9A%A8%E6%89%8B%E8%A8%98/">心情隨手記</a>
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%96%91%E9%9B%A3%E9%9B%9C%E7%97%87/">疑難雜症</a>
+                    
+                      <a class="hover-with-bg" href="/tags/excel/">excel</a>
                     
                   </div>
                 
@@ -312,9 +324,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/21/Excel%E5%8C%AF%E5%87%BA/">
+                      <a href="/2021/12/23/VM%E7%B6%B2%E9%A0%81%E7%84%A1%E6%B3%95%E5%9F%B7%E8%A1%8C%EF%BC%8C%E5%8D%BB%E5%8F%AF%E4%BB%A5%E9%80%A3%E7%B7%9A%E4%BF%AE%E6%94%B9%E5%85%A7%E5%AE%B9/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Excel匯出</span>
+                        <span class="hidden-mobile">VM網頁無法執行，卻可以連線修改內容</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -322,8 +334,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/16/%E8%B3%87%E6%96%99%E6%95%B4%E7%90%86/">
-                        <span class="hidden-mobile">資料整理</span>
+                      <a href="/2021/12/21/Excel%E5%8C%AF%E5%87%BA/">
+                        <span class="hidden-mobile">Excel匯出</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
