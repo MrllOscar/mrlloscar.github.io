@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>python初體驗</title>
+    <link href="/2021/12/29/python%E5%88%9D%E9%AB%94%E9%A9%97/"/>
+    <url>/2021/12/29/python%E5%88%9D%E9%AB%94%E9%A9%97/</url>
+    
+    <content type="html"><![CDATA[<h1 id="python-初體驗"><a href="#python-初體驗" class="headerlink" title="python 初體驗"></a>python 初體驗</h1><p>網路上看了很多<strong>python跟php差別在哪</strong>、<strong>python跟php哪個好？</strong>的文章</p><p>發現其實很多大神都是雙腳併用，畢竟領域不同</p><p>python出生於1991年、PHP出生於1994年，在web上PHP算是無可取代的，但python的多方面和簡易性也是數一數二</p><p>朋友剛好有一個便當需求，於是就想說來做個列表試試看</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$food</span>=[<span class="hljs-string">&#x27;排骨&#x27;</span>,<span class="hljs-string">&#x27;雞腿&#x27;</span>,<span class="hljs-string">&#x27;鯖魚&#x27;</span>];<br><span class="hljs-variable">$amount</span>=[<span class="hljs-number">80</span>,<span class="hljs-number">100</span>,<span class="hljs-number">120</span>];<br><span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-number">3</span>,<span class="hljs-variable">$i</span>++)&#123;<br>  <span class="hljs-keyword">print</span>(<span class="hljs-variable">$food</span>[<span class="hljs-variable">$i</span>].<span class="hljs-string">&#x27;便當&#x27;</span>.<span class="hljs-variable">$amount</span>[<span class="hljs-variable">$i</span>].<span class="hljs-string">&#x27;元&#x27;</span>);<br>&#125;<br><span class="hljs-variable">$sale</span>=[<span class="hljs-string">&#x27;排骨&#x27;</span>=&gt;<span class="hljs-number">80</span>,<span class="hljs-string">&#x27;雞腿&#x27;</span>=&gt;<span class="hljs-number">100</span>,<span class="hljs-string">&#x27;鯖魚&#x27;</span>=&gt;<span class="hljs-number">120</span>];<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$sale</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt;<span class="hljs-variable">$value</span>)&#123;<br>  <span class="hljs-keyword">print</span>(<span class="hljs-variable">$key</span>.<span class="hljs-string">&#x27;便當&#x27;</span>.<span class="hljs-variable">$value</span>.<span class="hljs-string">&#x27;元&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">food=[<span class="hljs-string">&#x27;排骨&#x27;</span>,<span class="hljs-string">&#x27;雞腿&#x27;</span>,<span class="hljs-string">&#x27;鯖魚&#x27;</span>]<br>amount=[<span class="hljs-number">80</span>,<span class="hljs-number">100</span>,<span class="hljs-number">120</span>]<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>  <span class="hljs-built_in">print</span>(food[i],<span class="hljs-string">&#x27;便當&#x27;</span>,amount[i],<span class="hljs-string">&#x27;元&#x27;</span>)<br>sale=&#123;<span class="hljs-string">&#x27;排骨&#x27;</span>:<span class="hljs-number">80</span>,<span class="hljs-string">&#x27;雞腿&#x27;</span>:<span class="hljs-number">100</span>,<span class="hljs-string">&#x27;鯖魚&#x27;</span>:<span class="hljs-number">120</span>&#125;<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sale:<br>  <span class="hljs-built_in">print</span>(i,<span class="hljs-string">&#x27;便當&#x27;</span>,sale[i],<span class="hljs-string">&#x27;元&#x27;</span>)<br></code></pre></td></tr></table></figure><p>赫然發現兩者的陣列跟字典的使用方式就不同了</p><p>key的表達方式來說，兩者混用有時候會不知道生出來的東西是什麼</p><p>看來今天又比昨天更進步了一點呢(˘•ω•˘)</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>初學</tag>
+      
+      <tag>陣列</tag>
+      
+      <tag>字典</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>VM網頁無法執行，卻可以連線修改內容</title>
     <link href="/2021/12/23/VM%E7%B6%B2%E9%A0%81%E7%84%A1%E6%B3%95%E5%9F%B7%E8%A1%8C%EF%BC%8C%E5%8D%BB%E5%8F%AF%E4%BB%A5%E9%80%A3%E7%B7%9A%E4%BF%AE%E6%94%B9%E5%85%A7%E5%AE%B9/"/>
     <url>/2021/12/23/VM%E7%B6%B2%E9%A0%81%E7%84%A1%E6%B3%95%E5%9F%B7%E8%A1%8C%EF%BC%8C%E5%8D%BB%E5%8F%AF%E4%BB%A5%E9%80%A3%E7%B7%9A%E4%BF%AE%E6%94%B9%E5%85%A7%E5%AE%B9/</url>
