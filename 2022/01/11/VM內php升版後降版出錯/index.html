@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://mrlloscar.github.io/img/VMerror3.png">
 <meta property="article:published_time" content="2022-01-11T08:48:22.000Z">
-<meta property="article:modified_time" content="2022-01-11T10:01:02.488Z">
+<meta property="article:modified_time" content="2022-01-11T15:38:05.056Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="VirtualBox">
 <meta property="article:tag" content="CentOS">
@@ -215,7 +215,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.4k 字
     </span>
   
 
@@ -274,9 +274,9 @@
 <p>然後多次測試後他吐出一個<font color=#0000FF>訊息</font></p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmd">composer detected issues <span class="hljs-keyword">in</span> your platform:<br>Your Composer dependencies require a PHP version&quot;&gt;= <span class="hljs-number">7</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&quot; . You are running <span class="hljs-number">7</span>.<span class="hljs-number">1</span>.<span class="hljs-number">33</span>.<br><br>PHP Fatal error:...<br></code></pre></td></tr></table></figure>
 
-<p>![/img/VMerror1.png]</p>
+<p><img src="/img/VMerror1.png" srcset="/img/loading.gif" lazyload></p>
 <p>之後連<code>php artisan migrate</code>也變成</p>
-<p>![/img/VMerror2.png]</p>
+<p><img src="/img/VMerror2.png" srcset="/img/loading.gif" lazyload></p>
 <p>其實google會發現有很多<a target="_blank" rel="noopener" href="https://www.codegrepper.com/code-examples/php/Composer+detected+issues+in+your+platform%3A+Your+Composer+dependencies+require+a+PHP+version+%22%3E%3D+7.2.5%22.">方法1</a>、<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65339404/composer-detected-issues-in-your-platform-your-composer-dependencies-require-a">方法2</a>可以幫忙解決問題</p>
 <p>但偏偏我也不知道我那時候是腦充血還是英文能力退化成幼稚園，我就直接對著數字<em>7.2.5</em>、<em>7.1.33</em> 感到興奮</p>
 <p>一陣<font color=#FF0000>腦充血</font>就進行了    <font color=#FFD700>PHP版本升級</font>。</p>
@@ -296,12 +296,12 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo service httpd stop/<span class="hljs-built_in">start</span><br>sudo service nginx stop/<span class="hljs-built_in">start</span><br></code></pre></td></tr></table></figure>
 
 <p>的連擊拳想迫使他恢復正常，但VM就像上路大魔王一樣無動於衷</p>
-<p><font size=8px>哭阿</font></p>
+<p><font size=1px>哭阿</font></p>
 <p>但在這之中<code>Samba</code>還是正常運作所以還是可以對檔案進行CRUD</p>
 <p>在經過多方詢問後得到答案</p>
-<p>![/img/VMsuccess1.png]<br>![/img/VMsuccess2.png]<br>![/img/VMsuccess3.png]</p>
+<p><img src="/img/VMsuccess1.png" srcset="/img/loading.gif" lazyload><br><img src="/img/VMsuccess2.png" srcset="/img/loading.gif" lazyload><br><img src="/img/VMsuccess3.png" srcset="/img/loading.gif" lazyload></p>
 <p>當然也有這種答案</p>
-<p>![/img/VMerror3.png]</p>
+<p><img src="/img/VMerror3.png" srcset="/img/loading.gif" lazyload></p>
 <p><del>而這位還是當初教學我php的某位長輩…我真不知道我怎麼進化成現在這樣的</del></p>
 <p>最後終於在兩天上班時間的閒暇時間中檢查找到問題，並且記得開啟他們</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">systemctl <span class="hljs-built_in">restart</span> php-fpm<br>systemctl <span class="hljs-built_in">restart</span> nginx<br></code></pre></td></tr></table></figure>
