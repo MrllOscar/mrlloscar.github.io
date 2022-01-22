@@ -18,25 +18,26 @@
   <meta name="author" content="MrllOscar">
   <meta name="keywords" content="Oscar,小貓抓抓,Mrll">
   
-    <meta name="description" content="PHP 升版後降版(7.2.5 &#x3D;&gt; 7.1.33)起因一開始為了測試php artisan migrate是否能夠成功，於是在VirtualBox上面執行測試 因為VM環境的關係很多資料並沒有與正式機對上(也可能大家欄位都沒照規範) 先跳出了錯誤 12345SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name">
+    <meta name="description" content="最後只是一個小小的東西沒有打開，害我花了好多時間(๑•́ ₃ •̀๑)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VM內php升版後降版出錯">
-<meta property="og:url" content="http://mrlloscar.github.io/2022/01/11/VM%E5%85%A7php%E5%8D%87%E7%89%88%E5%BE%8C%E9%99%8D%E7%89%88%E5%87%BA%E9%8C%AF/index.html">
+<meta property="og:title" content="nginx 新增port連線到不同頁面">
+<meta property="og:url" content="http://mrlloscar.github.io/2022/01/22/nginx-%E6%96%B0%E5%A2%9Eport%E9%80%A3%E7%B7%9A%E5%88%B0%E4%B8%8D%E5%90%8C%E9%A0%81%E9%9D%A2/index.html">
 <meta property="og:site_name" content="Mrll濕濕又黑黑の小角落">
-<meta property="og:description" content="PHP 升版後降版(7.2.5 &#x3D;&gt; 7.1.33)起因一開始為了測試php artisan migrate是否能夠成功，於是在VirtualBox上面執行測試 因為VM環境的關係很多資料並沒有與正式機對上(也可能大家欄位都沒照規範) 先跳出了錯誤 12345SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name">
+<meta property="og:description" content="最後只是一個小小的東西沒有打開，害我花了好多時間(๑•́ ₃ •̀๑)">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="http://mrlloscar.github.io/img/VMerror3.png">
-<meta property="article:published_time" content="2022-01-11T08:48:22.000Z">
-<meta property="article:modified_time" content="2022-01-11T15:38:05.056Z">
+<meta property="og:image" content="http://mrlloscar.github.io/img/2022-01-22%20161712.png">
+<meta property="article:published_time" content="2022-01-22T08:13:41.000Z">
+<meta property="article:modified_time" content="2022-01-22T09:54:44.880Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="VirtualBox">
 <meta property="article:tag" content="CentOS">
-<meta property="article:tag" content="疑難雜症">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="php-fpm">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://mrlloscar.github.io/img/VMerror3.png">
+<meta name="twitter:image" content="http://mrlloscar.github.io/img/2022-01-22%20161712.png">
   
   
-  <title>VM內php升版後降版出錯 - Mrll濕濕又黑黑の小角落</title>
+  <title>nginx 新增port連線到不同頁面 - Mrll濕濕又黑黑の小角落</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -194,7 +195,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="VM內php升版後降版出錯">
+            <span class="h2" id="subtitle" title="nginx 新增port連線到不同頁面">
               
             </span>
 
@@ -204,8 +205,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-11 16:48" pubdate>
-        2022年1月11日 下午
+      <time datetime="2022-01-22 16:13" pubdate>
+        2022年1月22日 下午
       </time>
     </span>
   
@@ -215,7 +216,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      1.7k 字
     </span>
   
 
@@ -224,7 +225,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分鐘
+      6 分鐘
     </span>
   
 
@@ -261,81 +262,54 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">VM內php升版後降版出錯</h1>
+            <h1 style="display: none">nginx 新增port連線到不同頁面</h1>
             
             <div class="markdown-body">
-              <h1 id="PHP-升版後降版-7-2-5-gt-7-1-33"><a href="#PHP-升版後降版-7-2-5-gt-7-1-33" class="headerlink" title="PHP 升版後降版(7.2.5 =&gt; 7.1.33)"></a>PHP 升版後降版(7.2.5 =&gt; 7.1.33)</h1><h4 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h4><p>一開始<font color=#008000>為了測試php artisan migrate是否能夠成功</font>，於是在VirtualBox上面執行測試</p>
-<p>因為VM環境的關係很多資料並沒有與正式機對上(也可能大家欄位都沒照規範)</p>
-<p>先跳出了<font color=#FF0000>錯誤</font></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SQLSTATE</span>[<span class="hljs-number">42</span>S21]: <span class="hljs-keyword">Column</span> already <span class="hljs-keyword">exists</span>: <span class="hljs-number">1060</span> Duplicate <span class="hljs-keyword">column</span> name <span class="hljs-string">&#x27;xxxxx&#x27;</span> (<span class="hljs-keyword">SQL</span>: <span class="hljs-keyword">alter</span><br><span class="hljs-keyword">table</span> `XX_xxxxx` <span class="hljs-keyword">add</span> `xxxxx` tinyint <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;0&#x27;</span> comment <span class="hljs-string">&#x27;(⁎˃ᆺ˂)(╬ Ò ‸ Ó)(ꐦ ಠ皿ಠ )( &gt;д&lt;)(-`д´-)&#x27;</span>)<br><br>[PDOException]<br><span class="hljs-keyword">SQLSTATE</span>[<span class="hljs-number">42</span>S21]: <span class="hljs-keyword">Column</span> already <span class="hljs-keyword">exists</span>: <span class="hljs-number">1060</span> Duplicate <span class="hljs-keyword">column</span> name <span class="hljs-string">&#x27;xxxxx&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>等等的錯誤，提醒你你的表格已有但是你在migrate的資料表內沒有這個檔案紀錄</p>
-<p>於是就<font color=#0000FF>手動加加減減修正了他</font>。</p>
-<p>再多番<font color=#FF6600>校正</font>之後，成功執行了<code>php artisan migrate</code>卻無法執行<code>php artisan migrate:rollback</code></p>
-<p>然後多次測試後他吐出一個<font color=#0000FF>訊息</font></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmd">composer detected issues <span class="hljs-keyword">in</span> your platform:<br>Your Composer dependencies require a PHP version&quot;&gt;= <span class="hljs-number">7</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&quot; . You are running <span class="hljs-number">7</span>.<span class="hljs-number">1</span>.<span class="hljs-number">33</span>.<br><br>PHP Fatal error:...<br></code></pre></td></tr></table></figure>
+              <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>其實最後的<font style="FF3333">故障點</font>如果不是<font style="FFFF33">虛擬機(nginx)沒有重新啟動</font>，大概就是<font style="FFFF33">防火牆沒有成功開通了</font></p>
+<p>nginx的介紹在網路上相信很多人都有看過，簡單來說他跟apache的類型相似</p>
+<blockquote>
+<p>Nginx：</p>
+<blockquote>
+<p>注重高效能、高開發性<br>Apache：<br>目前民間最為廣泛使用的Web Server<br>IIS：<br>微軟所製的Web Server，支援完整，但僅能在Windows系統下使用。</p>
+</blockquote>
+</blockquote>
+<p>相關的比較應該<a target="_blank" rel="noopener" href="https://www.google.com/search?q=nginx+apache+%E6%AF%94%E8%BC%83&rlz=1C1CHBD_zh-TWTW975TW975&sxsrf=AOaemvKOS04ZcHSpaNZuOzZAUjYg7K7Hig:1642830820076&ei=5JvrYZuPBI3L-Qbi47SYDw&oq=nginx+apa&gs_lcp=Cgdnd3Mtd2l6EAMYATIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABDLATIFCAAQywEyBQgAEMsBMgUIABDLATIFCAAQywE6BAgjECc6BAgAEENKBAhBGABKBAhGGABQAFjrDGDgGWgAcAJ4AIABPYgB3AGSAQE0mAEAoAEBwAEB&sclient=gws-wiz">google</a>會給你很多建議</p>
+<p>nginx的設定在網路上千萬種，因為centOS 7 所以有嘗試將範圍縮小，但其實差不多</p>
+<p>關於<a target="_blank" rel="noopener" href="https://blog.hellojcc.tw/nginx-beginner-tutorial/">nginx的基礎設定</a>這一篇就很值得看</p>
+<p>雖然ubuntu不是我們的環境，但它裡面除了安裝改使用yum之外其他都差不多</p>
+<p>關於nginx：</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vala">http &#123;<br><span class="hljs-meta"># server 一定在 http 裡面</span><br>server &#123;<br><span class="hljs-meta"># listen 是個 simple directive</span><br><span class="hljs-meta"># 對 server 這個 block directive 作設定</span><br><span class="hljs-meta"># 指定它監聽 port 80</span><br>listen <span class="hljs-number">80</span>;<br><span class="hljs-meta"># location 一定在 server 裡面</span><br>location &#123;&#125;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>這就是<code>/etc/nginx/nginx.conf</code>內設定的規則</p>
+<p>proxy server這塊沒有特別做設定，所以我就不再關公面前耍大刀了</p>
+<p>而<a target="_blank" rel="noopener" href="https://tec.xenby.com/20-nginx-%E8%88%87-php-fpm-%E9%81%8B%E4%BD%9C%E4%BB%8B%E7%B4%B9%E8%88%87%E8%A8%AD%E5%AE%9A%E8%AC%9B%E8%A7%A3">nginx上面要執行php就要靠php-fpm</a>了<em>當然也許有其他東西我只是舉例</em></p>
+<p><font style="996633">nginx</font> 是一個 web server、一個靜態檔案伺服器</p>
+<p><font style="996633">php-fpm</font> 是 FastCGI Process Manager 的縮寫、接收特定 request 並且運行 php 腳本產生結果</p>
+<p>沒有一定要用於 php，可以依據情況將 request 丟給其他程式語言處理，或是將 request 丟給不同的 php 版本處理</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">gzip</span> <span class="hljs-literal">on</span>;<br>  <br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-attribute">try_files</span> $uri $uri/ =<span class="hljs-number">404</span>;<br>    &#125;<br><br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~ .*\.php$</span> &#123;<br>        <span class="hljs-attribute">include</span> snippets/fastcgi-php.conf;<br>        <span class="hljs-attribute">fastcgi_pass</span> unix:/run/php/php7.2-fpm.sock;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><img src="/img/VMerror1.png" srcset="/img/loading.gif" lazyload></p>
-<p>之後連<code>php artisan migrate</code>也變成</p>
-<p><img src="/img/VMerror2.png" srcset="/img/loading.gif" lazyload></p>
-<p>其實google會發現有很多<a target="_blank" rel="noopener" href="https://www.codegrepper.com/code-examples/php/Composer+detected+issues+in+your+platform%3A+Your+Composer+dependencies+require+a+PHP+version+%22%3E%3D+7.2.5%22.">方法1</a>、<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65339404/composer-detected-issues-in-your-platform-your-composer-dependencies-require-a">方法2</a>可以幫忙解決問題</p>
-<p>但偏偏我也不知道我那時候是腦充血還是英文能力退化成幼稚園，我就直接對著數字<em>7.2.5</em>、<em>7.1.33</em> 感到興奮</p>
-<p>一陣<font color=#FF0000>腦充血</font>就進行了    <font color=#FFD700>PHP版本升級</font>。</p>
-<p>不升級還好，<font color=#FF0000>一升級發現版本跟自己專案不符</font>，還沒搞清楚升降版的問題的時候google到<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/54117054/complete-uninstall-and-re-install-of-php-on-centos-7/54118089">方法</a><font color=#FF0000>直接降版</font></p>
-<p>但其中的<code>sudo yum install mod_php70u php70u-cli php70u-mysqlnd</code>等等的安裝指令一直失敗</p>
-<p>所以我當中跳去搜尋<font color=#800080>其他安裝方法</font></p>
-<h2 id="接下來悲劇就發生了"><a href="#接下來悲劇就發生了" class="headerlink" title="接下來悲劇就發生了"></a>接下來悲劇就發生了</h2><p>因為    <font color=#FF00FF>連自己移除了什麼東西都不知道</font> <code>sudo yum remove --setopt=clean_requirements_on_remove=1 php php-pear php-mysql php-cli php-common mod-php</code></p>
-<p>安裝完之後一股腦兒的衝阿衝(Ò 皿 Ó ╬)，直接將php7.1.33版本安裝之後就啥都不管的瘋狂測試</p>
-<p>想當然，最後因為<code>php7-fpm-nginx php7-cli php7-mysqlnd</code>等等的套件都沒裝，問題百出</p>
-<p>先是<font color=#00FF00>入口頁面顯示</font></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-number">502</span> Bad Gateway nginx/<span class="hljs-number">1</span>.<span class="hljs-number">20</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>這個就是php-fpm的用法，其中<font style="FFFF33">gzip是壓縮</font>，這就是另外一<a target="_blank" rel="noopener" href="https://www.ltsplus.com/linux/nginx-enable-gzip">part</a>了</p>
+<p>![](/img/2022-01-22 161712.png)</p>
+<p>這就是我自己寫的部分，一樣location \根目錄做try_files，底下在寫一個location去對php做編譯</p>
+<p>這樣才能成功顯示出自己的網頁</p>
+<p>![](2022-01-22 170817.png)</p>
+<p>最後的最後，幾個需要注意的點</p>
+<p>檢查狀態<br><code>sudo nginx -t</code></p>
+<p>重新執行<em>starting new worker processes with a new configuration, graceful shutdown of old worker processes</em><br><code>sudo nginx -s reload</code></p>
+<p>檢查port<br><code>netstat -lnt</code></p>
+<h4 id="防火牆配置"><a href="#防火牆配置" class="headerlink" title="防火牆配置"></a><a target="_blank" rel="noopener" href="https://iter01.com/566910.html">防火牆配置</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum install -y firewalld <br>systemctl <span class="hljs-built_in">enable</span> firewalld        <span class="hljs-comment">#開機啟動</span><br>systemctl start firewalld        <span class="hljs-comment">#啟動</span><br></code></pre></td></tr></table></figure>
 
-<p>然後google找歪找到<font color=#00FF00>問題以為是</font></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">httpd[<span class="hljs-number">9079</span>] (<span class="hljs-number">98</span>)Address already <span class="hljs-keyword">in</span> use+centos<br></code></pre></td></tr></table></figure>
+<p>#開放埠</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">firewall-cmd <span class="hljs-attribute">--zone</span>=public <span class="hljs-attribute">--add-port</span>=80/tcp --permanent<br>firewall-cmd <span class="hljs-attribute">--zone</span>=public <span class="hljs-attribute">--add-port</span>=443/tcp --permanent<br></code></pre></td></tr></table></figure>
 
-<p>開始對他<font color=#FF0000>瘋狂的輸出，在連續使用</font></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">sudo service httpd stop/<span class="hljs-built_in">start</span><br>sudo service nginx stop/<span class="hljs-built_in">start</span><br></code></pre></td></tr></table></figure>
+<p>#流量轉發</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">firewall-cmd --add-forward-port=port=<span class="hljs-number">80</span><span class="hljs-symbol">:proto=tcp</span><span class="hljs-symbol">:toport=</span><span class="hljs-number">8800</span> --permanent<br>firewall-cmd --add-forward-port=port=<span class="hljs-number">443</span><span class="hljs-symbol">:proto=tcp</span><span class="hljs-symbol">:toport=</span><span class="hljs-number">4433</span>--permanent<br></code></pre></td></tr></table></figure>
 
-<p>的連擊拳想迫使他恢復正常，但VM就像上路大魔王一樣無動於衷</p>
-<p><font size=1px>哭阿</font></p>
-<p>但在這之中<code>Samba</code>還是正常運作所以還是可以對檔案進行CRUD</p>
-<p>在經過多方詢問後得到答案</p>
-<p><img src="/img/VMsuccess1.png" srcset="/img/loading.gif" lazyload><br><img src="/img/VMsuccess2.png" srcset="/img/loading.gif" lazyload><br><img src="/img/VMsuccess3.png" srcset="/img/loading.gif" lazyload></p>
-<p>當然也有這種答案</p>
-<p><img src="/img/VMerror3.png" srcset="/img/loading.gif" lazyload></p>
-<p><del>而這位還是當初教學我php的某位長輩…我真不知道我怎麼進化成現在這樣的</del></p>
-<p>最後終於在兩天上班時間的閒暇時間中檢查找到問題，並且記得開啟他們</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">systemctl <span class="hljs-built_in">restart</span> php-fpm<br>systemctl <span class="hljs-built_in">restart</span> nginx<br></code></pre></td></tr></table></figure>
+<p>#重啟防火牆讓配置生效<br><code>firewall-cmd --reload</code></p>
+<p>確認nginx狀態<br><code>sudo systemctl status nginx</code></p>
+<p>重新啟動nginx及php-fpm</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">sudo systemctl <span class="hljs-built_in">restart</span> nginx<br>sudo systemctl <span class="hljs-built_in">restart</span> php-fpm<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>這邊順便補充如果要常駐開啟就是<code>systemctl enable ?????</code></li>
-</ul>
-<p>在成功開啟<code>php-fpm</code>之後得到了<code>Composer detected issues in your platform: Your Composer dependencies require a PHP version &quot;&gt;= 7.2.5&quot;.</code></p>
-<p>這也是<font color=#00FF00>版本升降後衍生的問題</font></p>
-<p>參考了網路的<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65339404/composer-detected-issues-in-your-platform-your-composer-dependencies-require-a">文章</a>終於找到方法</p>
-<p>只是<font color=#FF6600>明明人家說</font></p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs arduino">Follow <span class="hljs-keyword">this</span> trick<br><br>add <span class="hljs-keyword">this</span> line in config object of composer.json file<br><br><span class="hljs-string">&quot;platform-check&quot;</span>: <span class="hljs-literal">false</span><br><br>run php artisan config:cache<br><br>then run composer dump-autoload in terminal<br></code></pre></td></tr></table></figure>
-
-<p>我卻看到<code>&quot;platform-check&quot;: false</code>後，又不知道哪來的衝動</p>
-<p><font color=#FF6600>僅執行</font></p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">composer config -l -g<br>composer config -g platform-check <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
-
-<p>就要他給我結果，就像主管跟你說：「這個專案很急趕快弄，等等給我？」</p>
-<p>你問主管說：「多久要？」</p>
-<p>然後主管回你說：「兩秒後」</p>
-<p>一樣的感覺ಠ_ಠ</p>
-<p>在這邊跟被我凌虐的linux說聲抱歉இдஇ</p>
-<p>執行完上面的忽略檢查之後，要執行<code>php artisan config:cache</code>跟<code>composer dump-autoload</code>之後</p>
-<p><font color=#0000FF>網頁才會恢復正常，真是經歷了一波大災難</font></p>
-<h4 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h4><p>只能說碰到問題的時候要更謹慎的處理，一股腦兒的衝可能越來越恐怖</p>
-<p>最好去看過的網頁都要留下紀錄，以免之後想要翻自己做了什麼都找不到</p>
-<p>這次也是很幸運我覺得刪除東西會有問題，把網頁加入最愛，來找到我remove的問題</p>
-<p>才能順利把這個問題有方向性的解掉</p>
-<p>當然如果自己多碰幾次說不定就能知道自己錯在哪了 ಥ⌣ಥ</p>
-<p>為了專案執行，先前也有備份一台備用的VM，避免自己工作上的進度delay</p>
-<p>才能順利完成分配工作的狀況下順便處理問題</p>
-<p><font color=#FF0000>備份的好習慣可是很重要的</font></p>
-<p>最後希望以後碰到這個問題的時候還想的到以前碰到這些，或是正在看這篇文章的你能得到一點幫助</p>
-<p>一起進步(˘•ω•˘)</p>
+<p>最後可以看看這篇認真的<a target="_blank" rel="noopener" href="https://fuglemanpeter.blogspot.com/2017/09/centos-7-nginx-mariadb-php.html">教學</a></p>
 
             </div>
             <hr>
@@ -345,7 +319,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83/">虛擬環境</a>
+                      <a class="hover-with-bg" href="/categories/%E7%96%91%E9%9B%A3%E9%9B%9C%E7%97%87/">疑難雜症</a>
                     
                   </div>
                 
@@ -357,7 +331,9 @@
                     
                       <a class="hover-with-bg" href="/tags/CentOS/">CentOS</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%96%91%E9%9B%A3%E9%9B%9C%E7%97%87/">疑難雜症</a>
+                      <a class="hover-with-bg" href="/tags/nginx/">nginx</a>
+                    
+                      <a class="hover-with-bg" href="/tags/php-fpm/">php-fpm</a>
                     
                   </div>
                 
@@ -374,18 +350,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/22/nginx-%E6%96%B0%E5%A2%9Eport%E9%80%A3%E7%B7%9A%E5%88%B0%E4%B8%8D%E5%90%8C%E9%A0%81%E9%9D%A2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">nginx 新增port連線到不同頁面</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/06/leetcode-%E6%8C%91%E6%88%B01138/">
-                        <span class="hidden-mobile">leetcode 挑戰1138.</span>
+                      <a href="/2022/01/11/VM%E5%85%A7php%E5%8D%87%E7%89%88%E5%BE%8C%E9%99%8D%E7%89%88%E5%87%BA%E9%8C%AF/">
+                        <span class="hidden-mobile">VM內php升版後降版出錯</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
