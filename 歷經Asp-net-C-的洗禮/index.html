@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="MrllOscar">
-  <meta name="keywords" content="Oscar,小貓抓抓,Mrll">
+  <meta name="keywords" content="Oscar,小貓抓抓,Mrll,Mr11">
   
     <meta name="description" content="C# 的新語法體驗歷經上次發hexo的文章已經過了一年 這一年實在是經歷了太多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="歷經Asp.net C#的洗禮">
 <meta property="og:url" content="http://mrlloscar.github.io/%E6%AD%B7%E7%B6%93Asp-net-C-%E7%9A%84%E6%B4%97%E7%A6%AE/">
-<meta property="og:site_name" content="Mrll濕濕又黑黑の小角落">
+<meta property="og:site_name" content="Mrll Note">
 <meta property="og:description" content="C# 的新語法體驗歷經上次發hexo的文章已經過了一年 這一年實在是經歷了太多">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://i.imgur.com/pD3YerU.png">
+<meta property="og:image" content="https://i.imgur.com/qdl3efT.png">
 <meta property="article:published_time" content="2023-01-03T06:56:01.000Z">
-<meta property="article:modified_time" content="2023-01-03T08:23:04.373Z">
+<meta property="article:modified_time" content="2023-01-04T02:06:19.807Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="ASP.net">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.imgur.com/pD3YerU.png">
+<meta name="twitter:image" content="https://i.imgur.com/qdl3efT.png">
   
   
-  <title>歷經Asp.net C#的洗禮 - Mrll濕濕又黑黑の小角落</title>
+  <title>歷經Asp.net C#的洗禮 - Mrll Note</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -84,7 +84,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>為了生活無法懶惰的人類</strong>
+      <strong>為了生活無法懶惰的社畜</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -272,13 +272,14 @@
 <p>但工作多數是改現成的東西，還是小有心得</p>
 <p>來記錄一下PHP轉到C#碰到的難處吧</p>
 <hr>
-<h3 id="1-型態"><a href="#1-型態" class="headerlink" title="1. 型態"></a>1. 型態</h3><p>第一次碰到這個狀況同樣是在EXCEL產出回應的時候碰到的(是說我跟EXCEL還真有緣分，兩種語法都有寫到)</p>
+<h3 id="1-型態"><a href="#1-型態" class="headerlink" title="1. 型態"></a>1. 型態</h3><p><img src="https://i.imgur.com/qdl3efT.png" srcset="/img/loading.gif" lazyload alt="Imgur"></p>
+<p>第一次碰到這個狀況同樣是在EXCEL產出回應的時候碰到的(是說我跟EXCEL還真有緣分，兩種語法都有寫到)</p>
 <p>在PHP中，幾乎$變數就可以解決所有的問題</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$X</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$X</span> == <span class="hljs-number">1</span>)&#123;<br>  <span class="hljs-variable">$X</span> = <span class="hljs-string">&quot;Yes&quot;</span>;<br>&#125;<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$X</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs php"><span class="hljs-variable">$X</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$X</span> == <span class="hljs-number">1</span>)&#123;<br>  <span class="hljs-variable">$X</span> = <span class="hljs-string">&quot;Yes&quot;</span>;<br>&#125;<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$X</span><br></code></pre></div></td></tr></table></figure>
 
 <p>這是可以在PHP中被使用的</p>
 <p>但</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C#">int x = 1<br>string xStr = string.empty;<br>if( x &gt;= 1)&#123;<br>  xStr = &quot;Yes&quot;;<br>&#125;<br>return xStr<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">int x = 1<br>string xStr = string.empty;<br>if( x &gt;= 1)&#123;<br>  xStr = &quot;Yes&quot;;<br>&#125;<br>return xStr<br></code></pre></div></td></tr></table></figure>
 
 <p>C#就必須將寫法改成這樣</p>
 <p>要有兩種型態的變數存在</p>
@@ -352,6 +353,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/diagrams%E6%B5%81%E7%A8%8B%E5%9C%96%E7%B9%AA%E8%A3%BD/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">diagrams流程圖繪製</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
