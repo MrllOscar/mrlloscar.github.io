@@ -20,23 +20,23 @@
   
     <meta name="description" content="趁忙裡偷閒的時候來刷一下leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-挑戰1833">
-<meta property="og:url" content="http://mrlloscar.github.io/leetcode-%E6%8C%91%E6%88%B01833/">
+<meta property="og:title" content="leetcode-挑戰134">
+<meta property="og:url" content="http://mrlloscar.github.io/leetcode-%E6%8C%91%E6%88%B0134/">
 <meta property="og:site_name" content="Mrll Note">
 <meta property="og:description" content="趁忙裡偷閒的時候來刷一下leetcode">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://i.imgur.com/47NbNBX.png">
-<meta property="article:published_time" content="2023-01-07T08:27:38.000Z">
-<meta property="article:modified_time" content="2023-01-10T06:12:58.527Z">
+<meta property="og:image" content="https://i.imgur.com/ojYRXz5.png">
+<meta property="article:published_time" content="2023-01-08T08:27:38.000Z">
+<meta property="article:modified_time" content="2023-01-10T06:13:40.905Z">
 <meta property="article:author" content="MrllOscar">
 <meta property="article:tag" content="疑難雜症">
 <meta property="article:tag" content="多重">
 <meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.imgur.com/47NbNBX.png">
+<meta name="twitter:image" content="https://i.imgur.com/ojYRXz5.png">
   
   
-  <title>leetcode-挑戰1833 - Mrll Note</title>
+  <title>leetcode-挑戰134 - Mrll Note</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -194,7 +194,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="leetcode-挑戰1833">
+            <span class="h2" id="subtitle" title="leetcode-挑戰134">
               
             </span>
 
@@ -204,8 +204,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-01-07 16:27" pubdate>
-        2023年1月7日 下午
+      <time datetime="2023-01-08 16:27" pubdate>
+        2023年1月8日 下午
       </time>
     </span>
   
@@ -215,7 +215,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      3.5k 字
     </span>
   
 
@@ -224,7 +224,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分鐘
+      11 分鐘
     </span>
   
 
@@ -261,35 +261,46 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">leetcode-挑戰1833</h1>
+            <h1 style="display: none">leetcode-挑戰134</h1>
             
             <div class="markdown-body">
-              <h1 id="1833-Maximum-Ice-Cream-Bars"><a href="#1833-Maximum-Ice-Cream-Bars" class="headerlink" title="1833. Maximum Ice Cream Bars"></a>1833. Maximum Ice Cream Bars</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-ice-cream-bars/">Maximum Ice Cream Bars題目</a></p>
-<p>題目說有個男孩希望用手上的錢買到最多的冰淇淋</p>
-<p><img src="https://memeprod.sgp1.digitaloceanspaces.com/user-template/e49b8b16b464b9fc31905568b55128cf.png" srcset="/img/loading.gif" lazyload></p>
-<p>所以只是總額扣除陣列內的數字最大化</p>
-<p>其實理解上並不難</p>
-<p>主要是他有一個測試是</p>
-<p>他大概有800還是8000萬要去買光那店家看起來起碼就幾百家</p>
-<p><strong>到底哪個男孩有錢成這個樣子!!</strong></p>
-<p>總之如果用最基礎的想法UNSET掉迴圈裡面最小值肯定會執行時間超過</p>
-<p>忽然間我回憶起了一個東西</p>
-<p>sort()</p>
-<p>天啊這個PHP自動排序陣列的方式我突然忘了！</p>
-<p>剛剛那個題組4如果也用這個方法肯定執行更快</p>
-<p>我真的是春天底下的兩條蟲</p>
-<p>蠢翻了！</p>
-<p>通過的時候我知道應該會有更好的方式</p>
-<p>但我現在只想趕快回去把那個丟臉到不行的第四題重作</p>
-<p>快逃(˘•ω•˘)</p>
-<p><img src="https://i.imgur.com/47NbNBX.png" srcset="/img/loading.gif" lazyload alt="Imgur"></p>
-<h3 id="PHP-執行時間-702ms-記憶體-32-7MB-看不到最快跟最少"><a href="#PHP-執行時間-702ms-記憶體-32-7MB-看不到最快跟最少" class="headerlink" title="PHP (執行時間:702ms 記憶體:32.7MB 看不到最快跟最少)"></a>PHP (執行時間:702ms 記憶體:32.7MB <em>看不到最快跟最少</em>)</h3><figure class="highlight php"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> Integer[] $costs</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> Integer $coins</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> Integer</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">maxIceCream</span>(<span class="hljs-params"><span class="hljs-variable">$costs</span>, <span class="hljs-variable">$coins</span></span>) </span>&#123;<br>        <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>;<br>        sort(<span class="hljs-variable">$costs</span>);<br>        <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$costs</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$v</span>)&#123;<br>            <span class="hljs-variable">$coins</span> = <span class="hljs-variable">$coins</span> - <span class="hljs-variable">$v</span>;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-variable">$coins</span>&gt;=<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-variable">$i</span>++;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$i</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+              <h1 id="134-Gas-Station"><a href="#134-Gas-Station" class="headerlink" title="134. Gas Station"></a>134. Gas Station</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/gas-station/">Gas Station題目</a></p>
+<p>題目設定陣列 <strong>油量</strong> 及 <strong>消耗</strong> 兩組</p>
+<p>其中若第幾個<code>油量-消耗</code>開始可以跑完全程，</p>
+<p>這第幾個就會是答案。</p>
+<p>如果到哪一站油透支不能跑一圈的時候，</p>
+<p>這次行程就不成立。</p>
+<p>若全部行程都不成立，則回覆-1。</p>
+<p>照著邏輯一開始用C#寫了一個</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int CanCompleteCircuit(int[] gas, int[] cost) &#123;<br>        for(int i=0;i &lt;= gas.Count()-1 ;i++)&#123;<br>            if(gas[i] - cost[i] &gt;= 0)&#123;<br>                int station = i;<br>                int travel = 0 ;<br>                int ret = 0;<br>                for(station = i;station &lt;= gas.Count() ; station++)&#123;<br>                    travel += (gas[station] - cost[station]);<br>                    if(travel &lt; 0)&#123;<br>                        break;<br>                    &#125;else if(ret == 1 &amp;&amp; station == i)&#123;<br>                        return i;<br>                    &#125;else if(station == gas.Count()-1)&#123;<br>                        ret = 1;<br>                        station = -1;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        return -1;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<h3 id="C"><a href="#C" class="headerlink" title="C#"></a>C#</h3><h5 id="自己做的-執行時間-263ms-88-89-記憶體-56-1MB-5-56"><a href="#自己做的-執行時間-263ms-88-89-記憶體-56-1MB-5-56" class="headerlink" title="自己做的 (執行時間:263ms 88.89% 記憶體:56.1MB 5.56% )"></a>自己做的 (執行時間:263ms <em>88.89%</em> 記憶體:56.1MB <em>5.56%</em> )</h5><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int MaxIceCream(int[] costs, int coins) &#123;<br>        Array.Sort(costs);<br>        int i = 0;<br><br>        foreach(var value in costs)&#123;<br>            coins -= value;<br>            if(coins &lt; 0 )&#123;<br>                break;<br>            &#125;else&#123;<br>                i++;<br>            &#125;<br>        &#125;<br>        return i;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<p>感覺其實可以直接在裡面Return出去會更好</p>
-<h5 id="記憶體使用最少-記憶體-47-6MB"><a href="#記憶體使用最少-記憶體-47-6MB" class="headerlink" title="記憶體使用最少 (記憶體:47.6MB)"></a>記憶體使用最少 (記憶體:47.6MB)</h5><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int MaxIceCream(int[] costs, int coins) &#123;<br>         var index = 0;<br>        Array.Sort(costs);<br>        while (coins &gt; 0 &amp;&amp; index &lt; costs.Length)<br>        &#123;<br>            coins -= costs[index];<br>            if (coins &lt; 0)<br>                return index;<br>            index++;<br>        &#125;<br><br>        return index;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>在我的理解中他應該是沒問題的</p>
+<p>但解答回覆我超時(Time Limit Exceeded)</p>
+<p>此時的題目是滿滿的一堆[ 0 ]可能到第一千個才有個[ 1 ]什麼混在裡面</p>
+<p>這根本是在噁心人啊！雖然我懂設計的用意是為了減少程式運作</p>
+<p>只是當下看到這個真的是傻眼三條線</p>
+<p>礙於題目貼上來太機車了很麻煩，想嘗試就複製我上面的代碼去跑看看吧</p>
+<p>最後還是得想辦法把這東西排除(合理狀況下也是得篩選)</p>
+<p>我猜一定有許多跟我碰到一樣的錯誤，你們肯定懂我當下的心情！</p>
+<p>之後為了考量效能問題必要的排除可能還是得考慮進去比較好</p>
+<hr>
+<h5 id="2023-01-10-更"><a href="#2023-01-10-更" class="headerlink" title="2023-01-10 更"></a>2023-01-10 更</h5><p>經過這次洗禮後才發現自己對C#還有很多不足的地方</p>
+<p>dictionary的應用、linq的方法、可以使用的工具</p>
+<p>在PHP方便這部分會有印象說PHP可以做到這件事</p>
+<p>在C#方面就很弱，靠著google還是能查到但又覺得自己的Google能力沒有很好</p>
+<p>有時候找不到自己要的關鍵字</p>
+<p>還有底下<a href="#%E9%80%9F%E5%BA%A6%E6%9C%80%E5%BF%AB-162ms">速度最快</a>的使用方法</p>
+<p>Zip居然可以做到這種事情</p>
+<p>但因為zip在windows支援在PHP等語法都是額外套件</p>
+<p>所以之前也沒思考過可以這樣用</p>
+<p>透過他也學到了一課</p>
+<p>持續加油(˘•ω•˘)</p>
+<p><img src="https://i.imgur.com/ojYRXz5.png" srcset="/img/loading.gif" lazyload alt="Imgur"></p>
+<h3 id="C-執行時間-237ms-26-8-記憶體-53-4MB-5-5"><a href="#C-執行時間-237ms-26-8-記憶體-53-4MB-5-5" class="headerlink" title="C# (執行時間:237ms 26.8% 記憶體:53.4MB 5.5%)"></a>C# (執行時間:237ms <em>26.8%</em> 記憶體:53.4MB <em>5.5%</em>)</h3><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int CanCompleteCircuit(int[] gas, int[] cost) &#123;<br>        int[] arrayIndex = gas.Select((val,index) =&gt; index).ToArray();<br>        int[] ArrayIndex = arrayIndex.Where((val, index) =&gt; gas[val] != cost[val]).ToArray();<br>        int[] Gas = gas.Where((val,index)=&gt; gas[index] != cost[index]).ToArray(); //會被移除重複的陣列<br>        int[] Cost = cost.Where((val,index)=&gt; cost[index] != gas[index]).ToArray();<br>        if(gas.Sum() &lt; cost.Sum())&#123;//總數過大永遠走不完<br>            return -1;<br>        &#125;<br>        if(gas.Sum() == cost.Sum() &amp;&amp; gas.Count() == 1)&#123;<br>            return 0 ;<br>        &#125;<br>        //開始處理<br>        int retA = 0;//計算是否重跑一輪<br>        for(int i=Array.IndexOf(Gas,Gas.Max());i &lt; ArrayIndex.Count();i++)&#123;<br>            int travel = 0 ;//計算油量與花費<br>            int ret = 0;//計算是否重跑一輪<br>                for(int station = i ; station &lt;= ArrayIndex.Count()-1 ; station++)&#123;//僅計算差異<br>                        travel += Gas[station] - Cost[station];//計算旅行花費使否成立<br>                        if(travel &lt; 0)&#123;//花費過頭<br>                            break;<br>                        &#125;else if(ret == 1 &amp;&amp; station == i)&#123;//當成功從起點又出發，並且此站是入口站(成功)<br>                            return ArrayIndex[i];<br>                        &#125;else if(station == ArrayIndex.Count()-1 &amp;&amp; ret == 0)&#123;<br>                            ret = 1;<br>                            station = -1;<br>                        &#125;<br>                &#125;<br>            if(i == ArrayIndex.Count()-1 &amp;&amp; retA == 0)&#123;<br>                retA = 1;<br>                i = -1;<br>            &#125;<br>        &#125;//全數陣列相同，不會進計算，出來直接回起始站[0]<br>        return -1;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<h5 id="速度最快-執行時間-235ms"><a href="#速度最快-執行時間-235ms" class="headerlink" title="速度最快 (執行時間:235ms)"></a>速度最快 (執行時間:235ms)</h5><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int MaxIceCream(int[] costs, int coins) &#123;<br>        var max = costs.Max();<br>        var countSort = new int[max+1];<br>        var count = 0;<br>        foreach (var c in costs) countSort[c]++;<br><br>        for (int i = 1; i &lt; countSort.Length; i++) &#123;<br>            if (countSort[i] == 0) continue;<br><br>            if (countSort[i] * i &lt;= coins) &#123;<br>                count += countSort[i];<br>                coins -= countSort[i] * i;<br>            &#125;<br>            else return count += coins / i;<br><br>            if (coins &lt;= 0) return count;<br>        &#125;<br><br>        return count;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="速度最快-162ms"><a href="#速度最快-162ms" class="headerlink" title="速度最快 (162ms)"></a>速度最快 (162ms)</h5><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int CanCompleteCircuit1(int[] gas, int[] cost) &#123;<br>        var amount = gas.Zip(cost, (gain, lose) =&gt; gain - lose).ToArray();<br>        int sum = amount.Sum();<br>                <br>        if(sum &lt; 0) return -1;<br>        <br>        int reverseSum = amount[^1];<br>        int maxIndex = amount.Length - 1;<br>        int maxSum = reverseSum;<br><br>        for(int i = amount.Length - 2; i &gt;= 0; i--)&#123;<br>            reverseSum += amount[i];<br>            if(reverseSum &gt; maxSum)&#123;<br>                maxIndex = i;<br>                maxSum = reverseSum;<br>            &#125;<br>        &#125;<br><br>        return maxIndex;<br>    &#125;<br><br>    public int CanCompleteCircuit(int[] gas, int[] cost) &#123;<br><br>        int sum = gas[^1] - cost[^1];<br>        int maxIndex = gas.Length - 1;<br>        int maxSum = sum;<br><br>        for(int i = gas.Length - 2; i &gt;= 0; i--)&#123;<br>            sum += gas[i] - cost[i];<br>            if(sum &gt; maxSum)&#123;<br>                maxIndex = i;<br>                maxSum = sum;<br>            &#125;<br>        &#125;<br><br>        if(sum &lt; 0) return -1;<br>        return maxIndex;<br><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="記憶體最少-45-1MB"><a href="#記憶體最少-45-1MB" class="headerlink" title="記憶體最少 (45.1MB)"></a>記憶體最少 (45.1MB)</h5><figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C#">public class Solution &#123;<br>    public int CanCompleteCircuit(int[] gas, int[] cost) &#123;<br>        //int[] len = new int[gas.Length];<br>    <br>        int start = 0;<br>        int sum = 0;<br>        int total = 0;<br><br>        for(int i = 0; i&lt;gas.Length; i++) <br>        &#123;<br>            total += gas[i] - cost[i];<br>    <br>            sum += gas[i] - cost[i];<br>            // start 一定不會從油不夠地方開始<br>            if(sum &lt; 0)<br>            &#123;<br>                sum = 0;<br>                start = i + 1;<br>            &#125;<br>        &#125;<br>        <br><br>        // gas 總共小於 cost 油一定不夠<br>        if(total &lt; 0 )<br>        &#123;<br>            return -1; <br>        &#125;<br>        else<br>        &#123;<br>            return start; <br>        &#125;          <br> <br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -327,18 +338,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode-%E6%8C%91%E6%88%B0134/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode-挑戰134</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode-%E6%8C%91%E6%88%B04/">
-                        <span class="hidden-mobile">leetcode-挑戰4</span>
+                      <a href="/leetcode-%E6%8C%91%E6%88%B01833/">
+                        <span class="hidden-mobile">leetcode-挑戰1833</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
